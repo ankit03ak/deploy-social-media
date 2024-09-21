@@ -26,7 +26,7 @@ export default function Messenger() {
     }, [arrivalMessage, currentChat]);
 
     useEffect(() => {
-        socket.current = io("ws://localhost:8900");
+        socket.current = io("https://deploy-social-media-socket1.onrender.com");
 
         socket.current.on("getMessage", (data) => {
             setArrivalMessage({

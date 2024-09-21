@@ -49,7 +49,7 @@ export default function Share() {
         }
         else {
             try {
-                const postRes = await axios.post("http://localhost:8800/api/posts", newPost);
+                const postRes = await axios.post("https://deploy-social-media-ap1.onrender.com/api/posts", newPost);
                 console.log("Post response:", postRes.data); // Log the response
                 window.location.reload();
               } catch (error) {
