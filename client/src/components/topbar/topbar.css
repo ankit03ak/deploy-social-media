@@ -1,0 +1,135 @@
+.topbarContainer{
+    height: 50px;
+    width: 100%;
+    background-color: #ffb14b;
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.topbarLeft{
+    flex: 3;
+}
+.logo{
+    font-size: 24px;
+    margin-left: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+.topbarCenter{
+    flex: 5;
+}
+.searchbar{
+    width: 100%;
+    height: 30px;
+    background-color: white;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.searchIcon{
+    font-size: 21px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+.searchInput{
+    border: none;
+    width: 70%;
+}
+.searchInput:focus{
+    outline: none;
+}
+
+.topbarRight{
+    flex: 4;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    color: white;
+
+}
+.topbarLink{
+    margin-right: 10px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.topbarIcons{
+    display: flex;
+}
+
+.topbarIconItem{
+    margin-right: 15px ;
+    cursor: pointer;
+    position: relative;
+}
+
+.badge{
+    font-size: 1.8rem;
+}
+
+.topbarIconBadge{
+    width: 15px;
+    height: 15px;
+    background-color: red;
+    border-radius: 50% ;
+    color: white;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.topbarImg{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+
+.logoutBtn {
+    background-color: #1bb367;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.logoutBtn:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+}
+
+.logoutBtn:active {
+    transform: translateY(0);
+}
+
+.logoutBtn[disabled] {
+    background-color: lightgray;
+    color: gray;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+
+.no-link-style {
+    text-decoration: none;
+    color: inherit; /* This maintains the text color of the parent */
+}
+
+
+/* logout section  */
+
+
+
