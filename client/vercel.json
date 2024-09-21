@@ -2,7 +2,7 @@
     "version": 2,
     "builds": [
       {
-        "src": "package.json",
+        "src": "src/index.js",
         "use": "@vercel/static-build",
         "config": {
           "distDir": "build"
@@ -13,11 +13,10 @@
       {
         "src": "/api/(.*)",
         "dest": "https://deploy-social-media-ap1.onrender.com/api/$1"
-      },
-      {
-        "src": "/(.*)",
-        "dest": "/index.html"
       }
-    ]
+    ],
+    "env": {
+      "REACT_APP_API_URL": "https://deploy-social-media-ap1.onrender.com/api"
+    }
   }
   
