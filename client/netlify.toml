@@ -1,10 +1,9 @@
 [build]
-  command = "npm run build"
   publish = "build"
-  # Set the environment variables here if required
-  environment = { 
-    REACT_APP_API_URL = "https://deploy-social-media-ap1.onrender.com/api" 
-  }
+  command = "npm run build"
+
+[dev]
+  command = "npm run start"
 
 [[redirects]]
   from = "/api/*"
@@ -16,3 +15,4 @@
   from = "/*"
   to = "/index.html"
   status = 200
+  force = true
