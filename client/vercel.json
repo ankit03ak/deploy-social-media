@@ -16,8 +16,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/index.html",
-      "methods": ["GET"]
+      "dest": "/index.html"
     }
   ]
 }
