@@ -1,0 +1,24 @@
+[build]
+  # Directory to publish (output folder after build)
+  publish = "build"
+  # Command to build your project
+  command = "npm run build"
+
+[dev]
+  # Port for running the development server locally using `netlify dev`
+  port = 3000
+  # Proxy API requests locally to your backend API
+  framework = "create-react-app"
+
+[[redirects]]
+  # Redirect API calls to your backend API during production
+  from = "/api/*"
+  to = "https://deploy-social-media-ap1.onrender.com/api/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  # Redirect all requests (except API) to index.html for client-side routing
+  from = "/*"
+  to = "/index.html"
+  status = 200
