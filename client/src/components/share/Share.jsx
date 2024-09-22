@@ -40,7 +40,7 @@ export default function Share() {
              const fileName = img.data.fileName
              newPost.img = fileName;
     
-             const res= await axios.post("/posts", newPost);
+             await axios.post("/posts", newPost);
               window.location.reload();
     
         } catch (error) {
