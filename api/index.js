@@ -66,10 +66,7 @@ app.use("/api/posts", postRoute);
 app.use("/api/conversations", ConversationRoute);
 app.use("/api/messages", messageRoute);
 
-// app.get('/', (req, res) => {
-//     res.send('Welcome to the API');
-//   });
-  
+
 
 
 app.listen(8800,() =>{
