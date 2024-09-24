@@ -1,9 +1,9 @@
 import { useContext, useRef, useState } from "react";
 import "./login.css";
-import { loginCall } from "../..https://deploy-social-media-ap1.onrender.com/apiCalls";
 import { AuthContext } from "../../context/AuthContext";
 import { FaCircleNotch } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
+import { loginCall } from "../../apiCalls";
 
 function Login() {
     const email = useRef();
