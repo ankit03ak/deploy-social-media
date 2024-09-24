@@ -39,7 +39,7 @@ export default function Post({ post }) {
 
   const likeHandler = async ()=>{
     try {
-      await axios.put("/posts/" + post._id + "/like", {userId : currentUser._id} ) 
+      await axios.put("https://deploy-social-media-ap1.onrender.com/api/posts/" + post._id + "/like", {userId : currentUser._id} ) 
     } catch (error) {
       console.log(error.message)
     }
