@@ -18,7 +18,7 @@ dotenv.config();
 const app = express();
 
 app.use(express.json())
-app.use(cors({ origin: "https://deploy-social-media-ui1.vercel.app" }));
+app.use(cors({ origin: "*" }));
 app.use(helmet())
 app.use(morgan("common"))
 
