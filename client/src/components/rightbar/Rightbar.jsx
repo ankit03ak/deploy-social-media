@@ -37,7 +37,7 @@ export default function Rightbar({ user }) {
       if (!user?._id) return;
 
       try {
-        const friendList = await axios.get("/users/friends/" + user._id);
+        const friendList = await axios.get("https://deploy-social-media-ap1.onrender.com/api/users/friends/" + user._id);
         if (Array.isArray(friendList.data)) {
           setFriends(friendList.data);
         } else if (friendList.data && Array.isArray(friendList.data.friends)) {

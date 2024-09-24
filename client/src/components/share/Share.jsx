@@ -164,18 +164,18 @@ export default function Share() {
 //       data.append("file", file);
 
 //       try {
-//         const uploadRes = await axios.post("https://real-time-social-media-4.onrender.com/api/upload", data);
+//         const uploadRes = await axios.post("https://real-time-social-media-4.onrender.comhttps://deploy-social-media-ap1.onrender.com/api/upload", data);
 //         const fileName = uploadRes.data.fileName; // Get filename from response
 //         newPost.img = fileName;
 
-//         await axios.post("https://real-time-social-media-4.onrender.com/api/posts", newPost);
+//         await axios.post("https://real-time-social-media-4.onrender.comhttps://deploy-social-media-ap1.onrender.com/api/posts", newPost);
 //         window.location.reload();
 //       } catch (error) {
 //         console.log(`Error during file upload or post creation: ${error}`);
 //       }
 //     } else {
 //       try {
-//         const postRes = await axios.post("https://real-time-social-media-4.onrender.com/api/posts", newPost);
+//         const postRes = await axios.post("https://real-time-social-media-4.onrender.comhttps://deploy-social-media-ap1.onrender.com/api/posts", newPost);
 //         console.log("Post response:", postRes.data); // Log the response
 //         window.location.reload();
 //       } catch (error) {

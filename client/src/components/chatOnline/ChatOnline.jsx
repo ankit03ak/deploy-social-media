@@ -13,7 +13,7 @@ export default function ChatOnline( {onlineUsers, currentId,setCurrentChat} ) {
   useEffect(() => {
     const getFriends = async () => {
       try {
-        const res = await axios.get("/users/friends/" + currentId );
+        const res = await axios.get("https://deploy-social-media-ap1.onrender.com/api/users/friends/" + currentId );
         setFriends(res.data);
       } catch (error) {
         console.log(error.message)
@@ -34,7 +34,7 @@ export default function ChatOnline( {onlineUsers, currentId,setCurrentChat} ) {
   const handleClick = async (user) => {
     try {
       const res = await axios.get(
-        `/conversations/find/${currentId}/${user._id}`
+        `https://deploy-social-media-ap1.onrender.com/api/conversations/find/${currentId}/${user._id}`
       );
       setCurrentChat(res.data);
     } catch (err) {

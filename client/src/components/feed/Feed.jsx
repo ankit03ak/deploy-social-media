@@ -15,16 +15,15 @@ export default function Feed({username}) {
 
   // console.log(username);
 
-  
   useEffect(() => {
     const fetchData = async () => {
       // const response = username
-      //   ? await axios.get("http://localhost:5000/api/posts/profile/" + username)
+      //   ? await axios.get("http://localhost:5000https://deploy-social-media-ap1.onrender.com/api/posts/profile/" + username)
       //   : await axios.get(
-      //       "http://localhost:5000/api/posts/timeline/" + user._id
+      //       "http://localhost:5000https://deploy-social-media-ap1.onrender.com/api/posts/timeline/" + user._id
       //     );
       const url = username
-      ? `https://deploy-social-media-ap1.onrender.com/api/posts/profile/${username}`
+      ? `ttps://deploy-social-media-ap1.onrender.com/api/posts/profile/${username}`
       : `https://deploy-social-media-ap1.onrender.com/api/posts/timeline/${user._id}`;
     
     const response = await axios.get(url);

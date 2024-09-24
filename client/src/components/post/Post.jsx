@@ -28,7 +28,7 @@ export default function Post({ post }) {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get(`/users?userId=${post.userId}`);
+        const res = await axios.get(`https://deploy-social-media-ap1.onrender.com/api/users?userId=${post.userId}`);
         setUser(res.data)
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -39,7 +39,7 @@ export default function Post({ post }) {
 
   const likeHandler = async ()=>{
     try {
-      await axios.put("/posts/" + post._id + "/like", {userId : currentUser._id} ) 
+      await axios.put("https://deploy-social-media-ap1.onrender.com/api/posts/" + post._id + "/like", {userId : currentUser._id} ) 
     } catch (error) {
       console.log(error.message)
     }
@@ -112,7 +112,7 @@ export default function Post({ post }) {
 //     const fetchUser = async () => {
 //       try {
 //         const res = await axios.get(
-//           `http://localhost:8800/api/users?userId=${post.userId}`
+//           `http://localhost:8800https://deploy-social-media-ap1.onrender.com/api/users?userId=${post.userId}`
 
 //         );
 //         setUserData(res.data);
@@ -127,7 +127,7 @@ export default function Post({ post }) {
 //   const likeHandler = async () => {
 //     try {
 //       const response = await axios.put(
-//         `http://localhost:8800/api/posts/${post._id}/like`,
+//         `http://localhost:8800https://deploy-social-media-ap1.onrender.com/api/posts/${post._id}/like`,
 //         { userId: user._id }
 //       );
 //       if (response.data.message === "post has been liked") {
