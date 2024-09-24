@@ -75,9 +75,6 @@ app.use((err, req, res, next) => {
     res.status(500).send('Something broke!');
 });
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
 
 app.listen(8800,() =>{
     console.log(`Server is running `)
