@@ -19,19 +19,16 @@ export default function Messenger() {
     const { user } = useContext(AuthContext);
     const scrollRef = useRef();
 
-    // Handle receiving new messages via socket
     useEffect(() => {
         if (arrivalMessage && currentChat?.members.includes(arrivalMessage.senderId)) {
             setMessages((prev) => [...prev, arrivalMessage]);
         }
     }, [arrivalMessage, currentChat]);
 
-    // Initialize socket connection
     useEffect(() => {
         socket.current = io("https://deploy-social-media-socket1.onrender.com");
 
         socket.current.on("getMessage", (data) => {
-            console.log("Received Message via Socket:", data); // Log the data
             setArrivalMessage({
                 senderId: data.senderId,
                 text: data.text,
@@ -44,27 +41,22 @@ export default function Messenger() {
         };
     }, []);
 
-    // Handle online users
+
+
     useEffect(() => {
         if (user._id) {
             socket.current.emit("addUser", user._id);
             socket.current.on("getUsers", (users) => {
-                setOnlineUsers(user.followings.filter((f) => users.some((u) => u.userId === f)));
+                setOnlineUsers(user.followings.filter((f) => users.some((u) => u.userId === f)))
             });
         }
     }, [user]);
 
-    // Fetch conversations
     useEffect(() => {
         const getConversations = async () => {
             try {
                 const res = await axios.get(`/conversations/${user._id}`);
-                console.log("Conversations Response:", res.data); // Log the response data
-                if (Array.isArray(res.data)) {
-                    setConversations(res.data);
-                } else {
-                    console.error("Expected an array for conversations but got:", res.data);
-                }
+                setConversations(res.data);
             } catch (error) {
                 console.log("Error fetching conversations:", error.message);
             }
@@ -72,19 +64,13 @@ export default function Messenger() {
         getConversations();
     }, [user._id]);
 
-    // Fetch messages for the current chat
+
     useEffect(() => {
         if (currentChat?._id) {
             const getMessages = async () => {
                 try {
                     const res = await axios.get(`/messages/${currentChat._id}`);
-                    console.log("Messages Response:", res.data); // Log the response data
-                    if (Array.isArray(res.data)) {
-                        setMessages(res.data);
-                    } else {
-                        console.error("Expected an array for messages but got:", res.data);
-                        setMessages([]); // Optionally reset the messages
-                    }
+                    setMessages(res.data);
                 } catch (error) {
                     console.log("Error fetching messages:", error.message);
                 }
@@ -93,12 +79,10 @@ export default function Messenger() {
         }
     }, [currentChat]);
 
-    // Scroll to the bottom of the chat when new messages arrive
     useEffect(() => {
         scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [messages]);
 
-    // Handle sending a new message
     const handleSubmit = async (e) => {
         e.preventDefault();
         const message = {
@@ -143,7 +127,7 @@ export default function Messenger() {
                         {currentChat ? (
                             <>
                                 <div className="chatBoxTop">
-                                    {Array.isArray(messages) && messages.map((m, index) => (
+                                    {messages.map((m, index) => (
                                         <div key={index} ref={scrollRef}>
                                             <Message message={m} own={m.senderId === user._id} inComingUser={currentChat} />
                                         </div>
@@ -166,11 +150,12 @@ export default function Messenger() {
                 </div>
                 <div className="chatOnline">
                     <div className="chatOnlineWrapper">
-                        <ChatOnline
-                            onlineUsers={onlineUsers}
-                            currentId={user._id}
-                            setCurrentChat={setCurrentChat}
-                        />
+                    <ChatOnline
+              onlineUsers={onlineUsers}
+              currentId={user._id}
+              
+              setCurrentChat={setCurrentChat}
+            />
                     </div>
                 </div>
             </div>
