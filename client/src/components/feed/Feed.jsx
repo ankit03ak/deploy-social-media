@@ -18,23 +18,25 @@ export default function Feed({username}) {
   
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const res = username 
-          ? await axios.get("/posts/profile/" + username) 
-          : await axios.get("/posts/timeline/66d00dbc861986c9048306d3");
-        
-        const temp = res.data.sort((p1, p2) => {
-          return new Date(p2.createdAt) - new Date(p1.createdAt);
-        });
-  
-        setPosts(temp);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-  
+      // const response = username
+      //   ? await axios.get("http://localhost:5000/api/posts/profile/" + username)
+      //   : await axios.get(
+      //       "http://localhost:5000/api/posts/timeline/" + user._id
+      //     );
+      const url = username
+      ? `https://deploy-social-media-ap1.onrender.com/api/posts/profile/${username}`
+      : `https://deploy-social-media-ap1.onrender.com/api/posts/timeline/${user._id}`;
+    
+    const response = await axios.get(url);
+
+      setPosts(
+        response.data.sort((post1, post2) => {
+          return new Date(post2.createdAt) - new Date(post1.createdAt);
+        })
+      )
+    }
     fetchData();
-  }, [username]);
+  }, [username, user._id]);
   
 
     useEffect(() => {
