@@ -17,23 +17,25 @@ export default function Feed({username}) {
 
   
   useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const res = username 
+    const fetchData = async () => {
+      try {
+        const res = username 
           ? await axios.get("/posts/profile/" + username) 
-          : await axios.get("/posts/timeline/66d00dbc861986c9048306d3")
-          setPosts(
-            res.data
-            .sort((p1,p2) => {
-              return new Date(p2.createdAt) - new Date(p1.createdAt)
-          })
-        );
-        } catch (error) {
-          console.error("Error fetching data:", error);
-        }
-      };
-      fetchData();
-    }, [username]);
+          : await axios.get("/posts/timeline/66d00dbc861986c9048306d3");
+        
+        const temp = res.data.sort((p1, p2) => {
+          return new Date(p2.createdAt) - new Date(p1.createdAt);
+        });
+  
+        setPosts(temp);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+  
+    fetchData();
+  }, [username]);
+  
 
     useEffect(() => {
       // Check if the current username is the same as the context username
