@@ -28,7 +28,7 @@ export default function Messenger() {
 
     // Initialize socket connection
     useEffect(() => {
-        socket.current = io("https://deploy-social-media-socket1.onrender.com");
+        socket.current = io("wss://https://deploy-social-media-socket1.onrender.com");
 
         socket.current.on("getMessage", (data) => {
             console.log("Received Message via Socket:", data); // Log the data
