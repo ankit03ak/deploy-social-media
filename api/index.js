@@ -3,11 +3,10 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
-const app = express();
 const cors = require("cors")
 const multer = require("multer")
-
 const path = require("path")
+
 
 const userRoute = require("./routes/users");
 const authRoute = require("./routes/auth");
@@ -15,8 +14,13 @@ const postRoute = require("./routes/posts");
 const ConversationRoute = require("./routes/conversations");
 const messageRoute = require("./routes/messages");
 
+dotenv.config();
+const app = express();
+
 app.use(express.json())
-app.use(cors({ origin: '*' }));
+app.use(cors({ origin: "https://deploy-social-media-ui1.vercel.app" }));
+app.use(helmet())
+app.use(morgan("common"))
 
 
 const storage = multer.diskStorage({
@@ -47,7 +51,6 @@ app.post("/api/upload", upload.single("file"), (req, res) => {
 
 
 
-dotenv.config();
 const url = process.env.MONGO_URL;
 mongoose.connect(`${url}`,)
     .then(()=> console.log("Connected to MongoDB"))
@@ -59,8 +62,7 @@ app.use("/images", express.static(path.join(__dirname, "public/images")));
 
 //middlewares
 
-app.use(helmet())
-app.use(morgan("common"))
+
 app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/posts", postRoute);
@@ -68,7 +70,14 @@ app.use("/api/conversations", ConversationRoute);
 app.use("/api/messages", messageRoute);
 
 
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+});
 
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 app.listen(8800,() =>{
     console.log(`Server is running `)
