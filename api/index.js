@@ -16,7 +16,7 @@ const ConversationRoute = require("./routes/conversations");
 const messageRoute = require("./routes/messages");
 
 app.use(express.json())
-app.use(cors({ origin: 'https://deploy-social-media-ui1.vercel.app' }));
+app.use(cors({ origin: '*' }));
 
 
 const storage = multer.diskStorage({
