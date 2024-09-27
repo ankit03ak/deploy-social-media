@@ -1,6 +1,6 @@
 const io = require("socket.io")(8900, {
     cors: {
-        origin: "http://localhost:3000",
+        origin: "https://deploy-social-media-ui1.vercel.app",
         methods: ["GET", "POST", "PUT", "FETCH"],
         allowedHeaders: ["my-custom-header"],
         credentials: true,
