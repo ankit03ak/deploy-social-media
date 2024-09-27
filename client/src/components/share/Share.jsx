@@ -23,51 +23,45 @@ export default function Share() {
   const desc = useRef();
   const [file, setFile] = useState(null);
 
-  const submitHandler = async (e) =>{
-      e.preventDefault();
-      const newPost = {
-          userId: user._id,
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    const newPost = {
+        userId: user._id,
         desc: desc.current.value,
-      }
-      // console.log(newPost.userId)
+    };
 
-      if(file){
-          const data = new FormData();
-          data.append("file",file)
-  
-          try {
-             const img = await axios.post("/upload", data);
-             const fileName = img.data.fileName
-             newPost.img = fileName;
-    
-             await axios.post("/posts", newPost);
-              window.location.reload();
-    
+    // Check if a file is provided
+    if (file) {
+        const data = new FormData();
+        data.append("file", file);
+
+        try {
+            // Use the full URL for the upload request
+            const img = await axios.post("https://deploy-social-media-ap1.onrender.com/api/upload", data);
+            const fileName = img.data.fileName;
+            newPost.img = fileName;
+
+            // Post the new post with the image
+            const postRes = await axios.post("https://deploy-social-media-ap1.onrender.com/api/posts", newPost);
+            console.log("Post response:", postRes.data); // Log the response
+            window.location.reload();
+
         } catch (error) {
             console.error("Upload and post Error:", error.response ? error.response.data : error.message);
-          }
         }
-        else {
-            try {
-                const postRes = await axios.post("https://deploy-social-media-ap1.onrender.com/api/posts", newPost);
-                console.log("Post response:", postRes.data); // Log the response
-                window.location.reload();
-              } catch (error) {
-                  console.log("Error during post creation:", error);
-                }
+    } else {
+        try {
+            // Post the new post without an image
+            const postRes = await axios.post("https://deploy-social-media-ap1.onrender.com/api/posts", newPost);
+            console.log("Post response:", postRes.data); // Log the response
+            window.location.reload();
+
+        } catch (error) {
+            console.log("Error during post creation:", error.response ? error.response.data : error.message);
         }
-                // try {
-                  //  const res= await axios.post("/posts", newPost);
-                  //   // window.location.reload();
-                  //   console.log(res.data);
-          
-                  // } catch (error) {
-                    //   console.error("Post Error:", error.response ? error.response.data : error.message);
-                    // }
-            
-            
-                }
-            
+    }
+};
+
 
   return (
       <div className="share">
