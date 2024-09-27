@@ -45,10 +45,7 @@ export default function Messenger() {
     // }, []);
 
     useEffect(() => {
-        socket.current = io("wss://deploy-social-media-socket1.onrender.com", {
-            transports: ["websocket", "polling"], // Use both websocket and polling
-            withCredentials: true,  // Ensures CORS issues are handled properly
-        });
+        socket.current = io("wss://deploy-social-media-socket1.onrender.com");
     
         socket.current.on("getMessage", (data) => {
             console.log("Received Message via Socket:", data);
