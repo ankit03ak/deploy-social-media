@@ -18,7 +18,7 @@ export default function Profile() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get(`/users?username=${username}`);
+        const res = await axios.get(`https://deploy-social-media-ap1.onrender.com/api/users?username=${username}`);
         setUser(res.data);
       } catch (error) {
         console.error("Error fetching data:", error.message);

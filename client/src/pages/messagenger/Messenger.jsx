@@ -76,7 +76,7 @@ export default function Messenger() {
     useEffect(() => {
         const getConversations = async () => {
             try {
-                const res = await axios.get(`/conversations/${user._id}`);
+                const res = await axios.get(`https://deploy-social-media-ap1.onrender.com/api/conversations/${user._id}`);
                 console.log("Conversations Response:", res.data); // Log the response data
                 if (Array.isArray(res.data)) {
                     setConversations(res.data);
@@ -95,7 +95,7 @@ export default function Messenger() {
         if (currentChat?._id) {
             const getMessages = async () => {
                 try {
-                    const res = await axios.get(`/messages/${currentChat._id}`);
+                    const res = await axios.get(`https://deploy-social-media-ap1.onrender.com/api/messages/${currentChat._id}`);
                     console.log("Messages Response:", res.data); // Log the response data
                     if (Array.isArray(res.data)) {
                         setMessages(res.data);
@@ -134,13 +134,26 @@ export default function Messenger() {
         });
 
         try {
-            const res = await axios.post("/messages", message);
+            const res = await axios.post("https://deploy-social-media-ap1.onrender.com/api/messages", message);
             setMessages([...messages, res.data]);
             setNewMessage("");
         } catch (error) {
             console.log("Error sending message:", error.message);
         }
     };
+
+    const handleConversationClick = async (c) => {
+        setCurrentChat(c);
+        const friendId = c.members.find((member) => member !== user?._id);
+        try {
+          const res = await axios.get(
+            "https://real-time-social-media-4.onrender.com/api/users?userId=" + friendId
+          );
+          setSelectedUser(res.data);
+        } catch (error) {
+          console.log("error during getting friend data for chatbox topbar");
+        }
+      };
 
     return (
         <>
@@ -150,7 +163,8 @@ export default function Messenger() {
                     <div className="chatMenuWrapper">
                         <input placeholder="Search for friends" className="chatMenuInput" />
                         {conversations.map((c, index) => (
-                            <div key={index} onClick={() => setCurrentChat(c)}>
+                            // <div key={index} onClick={() => setCurrentChat(c)}>
+                            <div key={index} onClick={() => handleConversationClick(c)}>
                                 <Conversation conversation={c} currentUser={user} />
                             </div>
                         ))}

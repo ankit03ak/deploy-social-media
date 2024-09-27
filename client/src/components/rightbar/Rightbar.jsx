@@ -59,11 +59,11 @@ export default function Rightbar({ user }) {
 
     try {
       if (followed) {
-        await axios.put(`/users/${user._id}/unfollow`, { userId: currentUser._id });
+        await axios.put(`https://deploy-social-media-ap1.onrender.com/api/users/${user._id}/unfollow`, { userId: currentUser._id });
         dispatch({type:"UNFOLLOW",payload : user._id})
         console.log("Unfollowed", currentUser._id);
       } else {
-        await axios.put(`/users/${user._id}/follow`, { userId: currentUser._id });
+        await axios.put(`https://deploy-social-media-ap1.onrender.com/api/users/${user._id}/follow`, { userId: currentUser._id });
         dispatch({type:"FOLLOW",payload : user._id})
         console.log("Followed", currentUser._id);
       }
