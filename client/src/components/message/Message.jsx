@@ -1,8 +1,7 @@
-import { useContext, useEffect, useState } from "react";
+import {useEffect, useState } from "react";
 import "./message.css"
 import {format} from "timeago.js"
 import axios from "axios";
-import { AuthContext } from "../../context/AuthContext";
 export default function Message({message, own}) {
 
   const PF = process.env.REACT_APP_PUBLIC_FOLDER
