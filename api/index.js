@@ -16,9 +16,13 @@ const ConversationRoute = require("./routes/conversations");
 const messageRoute = require("./routes/messages");
 
 app.use(express.json())
-app.use(cors(
-    {origin : "https://deploy-social-media-ui1.vercel.app"}
-));
+app.use(cors({
+    origin: [
+        "https://deploy-social-media-ui1.vercel.app",
+        "http://localhost:3000" // Add this for local development
+    ],
+    credentials: true 
+}));
 
 const storage = multer.diskStorage({
     destination : (req, file, cb) => {
@@ -33,7 +37,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage})
 
-app.post("/api/upload", upload.single("file"), (req, res) => {
+app.post("https://deploy-social-media-ap1.onrender.com/api/upload", upload.single("file"), (req, res) => {
     try {
         if (!req.file) {
             return res.status(400).json({ message: "No file uploaded." });
