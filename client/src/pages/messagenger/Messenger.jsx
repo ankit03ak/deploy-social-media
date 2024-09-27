@@ -15,7 +15,6 @@ export default function Messenger() {
     const [newMessage, setNewMessage] = useState("");
     const [arrivalMessage, setArrivalMessage] = useState(null);
     const [onlineUsers, setOnlineUsers] = useState([]);
-    const [selectedUser, setSelectedUser] = useState([]);
     const socket = useRef();
     const { user } = useContext(AuthContext);
     const scrollRef = useRef();
