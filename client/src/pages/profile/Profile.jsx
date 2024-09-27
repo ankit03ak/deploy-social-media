@@ -28,7 +28,7 @@ export default function Profile() {
   }, [username]);
   
 
-  // console.log(user);
+  console.log(user);
   // console.log(user.coverPicture);
   // console.log(user.profilePicture);
 
