@@ -43,9 +43,9 @@ export default function Messenger() {
     //         socket.current.disconnect();
     //     };
     // }, []);
-    
+
     useEffect(() => {
-        socket.current = io("https://deploy-social-media-socket1.onrender.com", {
+        socket.current = io("wss://deploy-social-media-socket1.onrender.com", {
             transports: ["websocket", "polling"], // Use both websocket and polling
             withCredentials: true,  // Ensures CORS issues are handled properly
         });
