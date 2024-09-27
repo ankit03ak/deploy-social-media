@@ -23,7 +23,7 @@ export default function Feed({username}) {
       //       "http://localhost:5000https://deploy-social-media-ap1.onrender.com/api/posts/timeline/" + user._id
       //     );
       const url = username
-      ? `ttps://deploy-social-media-ap1.onrender.com/api/posts/profile/${username}`
+      ? `https://deploy-social-media-ap1.onrender.com/api/posts/profile/${username}`
       : `https://deploy-social-media-ap1.onrender.com/api/posts/timeline/${user._id}`;
     
     const response = await axios.get(url);
