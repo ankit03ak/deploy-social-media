@@ -27,22 +27,43 @@ export default function Messenger() {
     }, [arrivalMessage, currentChat]);
 
     // Initialize socket connection
-    useEffect(() => {
-        socket.current = io("wss://https://deploy-social-media-socket1.onrender.com");
+    // useEffect(() => {
+    //     socket.current = io("https://deploy-social-media-socket1.onrender.com");
 
+    //     socket.current.on("getMessage", (data) => {
+    //         console.log("Received Message via Socket:", data); // Log the data
+    //         setArrivalMessage({
+    //             senderId: data.senderId,
+    //             text: data.text,
+    //             createdAt: Date.now(),
+    //         });
+    //     });
+
+    //     return () => {
+    //         socket.current.disconnect();
+    //     };
+    // }, []);
+    
+    useEffect(() => {
+        socket.current = io("https://deploy-social-media-socket1.onrender.com", {
+            transports: ["websocket", "polling"], // Use both websocket and polling
+            withCredentials: true,  // Ensures CORS issues are handled properly
+        });
+    
         socket.current.on("getMessage", (data) => {
-            console.log("Received Message via Socket:", data); // Log the data
+            console.log("Received Message via Socket:", data);
             setArrivalMessage({
                 senderId: data.senderId,
                 text: data.text,
                 createdAt: Date.now(),
             });
         });
-
+    
         return () => {
             socket.current.disconnect();
         };
     }, []);
+    
 
     // Handle online users
     useEffect(() => {
