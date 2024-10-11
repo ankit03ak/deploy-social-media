@@ -21,9 +21,10 @@
   }
   
   .sidebarList {
-    padding: 0;
-    margin: 0;
+    padding: 10px;
+    margin: 10px;
     list-style: none;
+    font-size: 1.27rem;
   }
   
   .sidebarListItem {
@@ -52,4 +53,8 @@
     padding: 0;
     margin: 0;
     list-style: none;
+  }
+
+  .sidebarListItemText:hover{
+    cursor: pointer;
   }
