@@ -94,7 +94,7 @@
 }
 
 
-.logoutBtn {
+/* .logoutBtn {
     background-color: #1bb367;
     color: white;
     border: none;
@@ -104,23 +104,23 @@
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
+} */
 
-.logoutBtn:hover {
+/* .logoutBtn:hover {
     background-color: #c0392b;
     transform: translateY(-2px);
 }
 
 .logoutBtn:active {
     transform: translateY(0);
-}
+} */
 
-.logoutBtn[disabled] {
-    background-color: lightgray;
-    color: gray;
+/* .logoutBtn[disabled] {
+    background-color: rgb(0, 0, 0);
+    color: rgb(0, 0, 0);
     cursor: not-allowed;
     box-shadow: none;
-}
+} */
 
 
 .no-link-style {
@@ -133,3 +133,57 @@
 
 
 
+/* //dropdown */
+
+.profile-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .profile-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-item {
+    padding: 10px;
+    font-size: 1.05rem;
+    border: 1px rgb(255, 255, 255) solid;
+    border-radius: 8px;
+    width: 100%;
+    background-color: rgb(233, 232, 255);
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.25s, transform 0.2s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+
+  .link-no-underline {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .green:hover{
+    background-color: rgb(46, 219, 46);
+    color: white;
+}
+.red:hover{
+    background-color: rgb(233, 50, 50);
+    color: white;
+  }
+  

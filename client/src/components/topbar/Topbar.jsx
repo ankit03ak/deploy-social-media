@@ -4,7 +4,7 @@ import { IoMdPerson } from "react-icons/io";
 import { IoChatboxOutline } from "react-icons/io5";
 import { IoMdNotifications } from "react-icons/io";
 import {Link} from "react-router-dom"
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 
 
@@ -12,20 +12,17 @@ export default function Topbar() {
 
     const {user} = useContext(AuthContext);
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+    const [isOpen, setIsOpen] = useState(false);
     
     
     const handleLogout = () => {
-            // const cnf = prompt("You have logged out successfully.");
-            // if(cnf === "yes" || cnf === "Yes" || cnf === "YES"){
                 localStorage.removeItem("user");
                 window.location.href = "/login";
-                // alert("You have logged out successfully");
-            // }
-        // else{
+    };
 
-        //     alert("User is still logged in");
-        // }
-    }; 
+    const toggleDropdown = () => {
+        setIsOpen(!isOpen);
+      }; 
 
 
   return (
@@ -69,16 +66,20 @@ export default function Topbar() {
                     <span className="topbarIconBadge">1</span>
                 </div>
             </div>
-            <Link to={`/profile/${user?.username}`}>
-            <img 
-            src={
-                user?.profilePicture ? PF + user?.profilePicture : PF + "user/Blank-Avatar.png"
-            } 
-            alt="" className="topbarImg" />
-            </Link>
-            <button className="logoutBtn disabled" onClick={handleLogout}> 
-                <h4>Logout</h4>
-                </button>
+            
+            <div className="dropdown">
+            <button onClick={toggleDropdown} className="profile-button">
+                <img src={user?.profilePicture ? PF + user?.profilePicture : PF + "user/Blank-Avatar.png"} alt="Profile" className="profile-icon" />
+            </button>
+      
+            {isOpen && (
+                <div className="dropdown-menu">
+                <button className="dropdown-item green"><Link to={`/profile/${user?.username}`} className='link-no-underline'> Profile</Link></button>
+                <button onClick={handleLogout} className="dropdown-item red">Logout</button>
+                </div>
+            )}
+            </div>
+
         </div>
 
     </div>
