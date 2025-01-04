@@ -7,7 +7,7 @@ export const Users = [
     {
       id: 2,
       profilePicture: `user/user2.jpg`,
-      username: "Riya Singh",
+      username: "Punya Chadha",
     },
     {
       id: 3,
@@ -17,7 +17,7 @@ export const Users = [
     {
       id: 4,
       profilePicture: `user/user4.jpg`,
-      username: "Akansha",
+      username: "Anoop",
     },
     {
       id: 5,
@@ -27,7 +27,7 @@ export const Users = [
     {
       id: 6,
       profilePicture: `user/user6.jpg`,
-      username: "Sachin Kumar",
+      username: "Avanish Shukla",
     },
     {
       id: 7,
@@ -47,7 +47,7 @@ export const Users = [
     {
       id: 10,
       profilePicture: `user/user10.jpg`,
-      username: "Arjun Chauhan",
+      username: "Sandeep Chauhan",
     },
   ];
   
