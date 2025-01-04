@@ -26,7 +26,7 @@ export default function Register() {
         password : password.current.value,
       };
       try {
-        await axios.post("https://deploy-social-media-ap1.onrender.com/auth/register",user);
+        await axios.post("https://deploy-social-media-ap1.onrender.com/api/auth/register",user);
         navigate("/login")
         // console.log(res.data)
       } catch (error) {

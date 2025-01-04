@@ -34,23 +34,22 @@ export default function Share() {
     if(file){
       const data = new FormData();
       data.append("file",file)
-
       try {
-         const img = await axios.post("https://deploy-social-media-ap1.onrender.com/api/upload", data);
-         const fileName = img.data.fileName
-         newPost.img = fileName;
-
-         const res= await axios.post("https://deploy-social-media-ap1.onrender.com/api/posts", newPost);
-          window.location.reload();
-
-    } catch (error) {
+        const img = await axios.post("https://deploy-social-media-ap1.onrender.com/api/upload", data);
+        const fileName = img.data.fileName;
+        newPost.img = fileName;
+     
+        await axios.post("https://deploy-social-media-ap1.onrender.com/api/posts", newPost);
+        window.location.reload();
+     }
+      catch (error) {
         console.error("Upload and post Error:", error.response ? error.response.data : error.message);
       }
     }
     else {
         try {
-            const postRes = await axios.post("https://deploy-social-media-ap1.onrender.com/api/posts", newPost);
-            // console.log("Post response:", postRes.data); // Log the response
+            await axios.post("https://deploy-social-media-ap1.onrender.com/api/posts", newPost);
+
             window.location.reload();
           } catch (error) {
               console.log("Error during post creation:", error);
