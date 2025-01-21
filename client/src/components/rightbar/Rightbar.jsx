@@ -54,11 +54,11 @@ export default function Rightbar({ user }) {
       if (followed) {
         await axios.put(`https://deploy-social-media-ap1.onrender.com/api/users/${user._id}/unfollow`, { userId: currentUser._id });
         dispatch({type:"UNFOLLOW",payload : user._id})
-        console.log("Unfollowed", currentUser._id);
+        // console.log("Unfollowed", currentUser._id);
       } else {
         await axios.put(`https://deploy-social-media-ap1.onrender.com/api/users/${user._id}/follow`, { userId: currentUser._id });
         dispatch({type:"FOLLOW",payload : user._id})
-        console.log("Followed", currentUser._id);
+        // console.log("Followed", currentUser._id);
       }
     } catch (error) {
       console.log("Error:", error.message);
@@ -71,7 +71,7 @@ export default function Rightbar({ user }) {
       <div className="birthdayContainer">
         <img className="birthdayImg" src={`${PF}gift.png`} alt="" />
         <span className="birthdayText">
-          <b>Adarsh</b> and <b>13 other friends</b> have a birthday today! wish them
+          <b>Ankit</b> and <b>13 other friends</b> have a birthday today! wish them
         </span>
       </div>
       <img className="rightbarAd" src={`${PF}advertise.jpg`} alt="" />

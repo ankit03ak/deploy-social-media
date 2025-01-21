@@ -53,7 +53,7 @@ export default function Topbar() {
             <div className="topbarIcons">
                 <div className="topbarIconItem">
                     <IoMdPerson className='badge'/>
-                    <span className="topbarIconBadge">1</span>
+                    <span className="topbarIconBadge">0</span>
                 </div>
                 <div className="topbarIconItem">
                 <Link to="/messenger" className="no-link-style">
@@ -63,7 +63,7 @@ export default function Topbar() {
                 </div>
                 <div className="topbarIconItem">
                     <IoMdNotifications className='badge'/>
-                    <span className="topbarIconBadge">1</span>
+                    <span className="topbarIconBadge">0</span>
                 </div>
             </div>
             

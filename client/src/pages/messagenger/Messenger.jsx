@@ -29,7 +29,7 @@ export default function Messenger() {
         socket.current = io("wss://deploy-social-media-socket1.onrender.com");
 
         socket.current.on("getMessage", (data) => {
-            console.log("Received Message via Socket:", data);
+            // console.log("Received Message via Socket:", data);
             setArrivalMessage({
                 senderId: data.senderId,
                 text: data.text,
@@ -55,7 +55,7 @@ export default function Messenger() {
         const getConversations = async () => {
             try {
                 const res = await axios.get(`https://deploy-social-media-ap1.onrender.com/api/conversations/${user._id}`);
-                console.log("Conversations Response:", res.data);
+                // console.log("Conversations Response:", res.data);
                 if (Array.isArray(res.data)) {
                     setConversations(res.data);
                 } else {
@@ -73,7 +73,7 @@ export default function Messenger() {
             const getMessages = async () => {
                 try {
                     const res = await axios.get(`https://deploy-social-media-ap1.onrender.com/api/messages/${currentChat._id}`);
-                    console.log("Messages Response:", res.data);
+                    // console.log("Messages Response:", res.data);
                     if (Array.isArray(res.data)) {
                         setMessages(res.data);
                     } else {
