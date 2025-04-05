@@ -51,20 +51,14 @@ export default function Topbar() {
 
             </div>
             <div className="topbarIcons">
-                <div className="topbarIconItem">
-                    <IoMdPerson className='badge'/>
-                    <span className="topbarIconBadge">0</span>
-                </div>
+                
                 <div className="topbarIconItem">
                 <Link to="/messenger" className="no-link-style">
                     <IoChatboxOutline className='badge' />
-                    <span className="topbarIconBadge">3</span>
-                    </Link>
+                    <span className="topbarIconBadge">1</span>
+                </Link>
                 </div>
-                <div className="topbarIconItem">
-                    <IoMdNotifications className='badge'/>
-                    <span className="topbarIconBadge">0</span>
-                </div>
+                
             </div>
             
             <div className="dropdown">

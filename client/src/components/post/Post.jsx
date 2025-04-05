@@ -46,6 +46,7 @@ export default function Post({ post }) {
     setLike(isLiked ? like-1 : like+1)
     setIsLiked(!isLiked)
   }
+  
 
 
   return (
@@ -80,7 +81,6 @@ export default function Post({ post }) {
             <span className="postLikeCounter">{like} people like it</span>
           </div>
           <div className="postBottomRight">
-            <span className="postCommentText">{post.comment} Comments </span>
           </div>
         </div>
       </div>

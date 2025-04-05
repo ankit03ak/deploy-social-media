@@ -1,102 +1,110 @@
-.login {
-    width: 100vw;
-    height: 100vh;
-    /* background-color: #f0f2f5; */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .loginWrapper {
-    width: 70%;
-    height: 70%;
-    display: flex;
-  }
-  
-  .loginLeft,
-  .loginRight {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  
-  .loginLogo {
-    font-size: 50px;
-    font-weight: 800;
-    color: #ff0066;
-    margin-bottom: 10px;
-  }
-  
-  .loginDesc {
-    font-size: 24px;
-  }
-  
-  .loginBox{
-      height: 400px;
-      padding: 20px;
-      /* background-color: white; */
-      border-radius: 8px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-  }
-  
-  .loginInput{
-      height: 50px;
-      /* border-radius: 7px; */
-      border: none;
-      border-bottom: 1px solid rgb(255, 236, 29);
-      font-size: 18px;
-      padding-left: 20px;
-  }
-  
-  .loginInput:focus{
-      /* outline: none; */
-  }
-  
-  .loginButton{
-      height: 50px;
-      width: 110px;
-      border-radius: 5px;
-      border: 1px solid rgb(95, 108, 255);
-      /* background-color: #76709a; */
-      align-self: center;
-      color: white;
-      font-size: 23px;
-      font-weight: 500;
-      cursor: pointer;
-  }
-  .loginButton:hover{
-    border: none;
-    background-color: #ff4f6c;
+/* Background and container */
+.register-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
 
-  }
-  
-  .loginForgot{
-      text-align: center;
-      color: #fc9b9b;
-  }
-  
-  .loginRegisterButton{
-      width: 60%;
-      align-self: center;
-      height: 50px;
-      border-radius: 4px;
-      border: 1px solid rgb(172, 166, 255);
-      /* background-color: #69aa4c; */
-      color: white;
-      font-size: 21px;
-      font-weight: 500;
-      cursor: pointer;
-  }
-  .loginRegisterButton:hover{
-    border: none;
-    background-color: rgb(43, 249, 43);
+/* Card styling */
+.register-card {
+  background-color: #fff;
+  width: 380px;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
 
-  }
+/* Header styles */
+.register-header {
+  margin-bottom: 1.5rem;
+}
 
-  ::placeholder {
-    color: rgb(56, 54, 54);
-    opacity: 0.6; /* Firefox */
-  }
+.register-title {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 0.3rem;
+}
+
+.register-subtitle {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Form styling */
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.register-input {
+  padding: 0.75rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border 0.3s ease;
+}
+
+.register-input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+/* Error message */
+.error-message {
+  color: #e74c3c;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Register button */
+.register-button {
+  padding: 0.75rem;
+  background-color: #667eea;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.register-button:hover {
+  background-color: #5a67d8;
+}
+.register-button:hover {
+  color: #f3f3f3;
+}
+
+/* Footer section */
+.register-footer {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+
+.already-account {
+  color: #666;
+}
+
+.login-button {
+  background: none;
+  border: none;
+  color: #ffffff;
+  background-color: #5a67d8;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.login-button:hover {
+  color: #ffffff;
+  background-color: #4f78ff;
+}

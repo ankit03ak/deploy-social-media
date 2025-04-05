@@ -92,3 +92,14 @@
     cursor: pointer;
     opacity: 0.7;
   }
+
+  .emojiPicker {
+    position: absolute;
+    bottom: 60px;
+    left: 50px;
+    z-index: 10;
+    background-color: white;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+  

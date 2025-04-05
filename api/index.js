@@ -19,7 +19,7 @@ app.use(express.json())
 app.use(cors({
     origin: [
         "https://deploy-social-media-ui1.vercel.app",
-        "http://localhost:3000" // Add this for local development
+        "http://localhost:3000" 
     ],
     credentials: true 
 }));
