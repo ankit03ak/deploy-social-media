@@ -1,8 +1,6 @@
 import './topbar.css'
 import { FaSearch } from "react-icons/fa";
-import { IoMdPerson } from "react-icons/io";
 import { IoChatboxOutline } from "react-icons/io5";
-import { IoMdNotifications } from "react-icons/io";
 import {Link} from "react-router-dom"
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
