@@ -4,6 +4,7 @@ import { IoChatboxOutline } from "react-icons/io5";
 import {Link} from "react-router-dom"
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
+import { toast } from 'react-toastify';
 
 
 export default function Topbar() {
@@ -13,10 +14,14 @@ export default function Topbar() {
     const [isOpen, setIsOpen] = useState(false);
     
     
-    const handleLogout = () => {
-                localStorage.removeItem("user");
-                window.location.href = "/login";
-    };
+const handleLogout = () => {
+  localStorage.removeItem("user");
+  toast.success("Logged out successfully!");
+  setTimeout(() => {
+    window.location.href = "/login";
+  }, 1500); // wait for toast to show
+};
+
 
     const toggleDropdown = () => {
         setIsOpen(!isOpen);

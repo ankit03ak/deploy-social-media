@@ -4,6 +4,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { FaCircleNotch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { loginCall } from "../../apiCalls";
+import { toast } from "react-toastify";
 
 function Login() {
   const email = useRef();
@@ -12,17 +13,24 @@ function Login() {
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
-  const handleClick = async (e) => {
-    e.preventDefault();
-    try {
-      await loginCall(
-        { email: email.current.value, password: password.current.value },
-        dispatch
-      );
-    } catch (err) {
-      setError("Login failed. Please check your credentials.");
-    }
-  };
+const handleClick = async (e) => {
+  e.preventDefault();
+  try {
+    const res = await loginCall(
+      { email: email.current.value, password: password.current.value },
+      dispatch
+    );
+
+    // Show success toast
+    toast.success("Login successful!");
+  } catch (err) {
+    // Show backend error if available, else fallback to default
+    const errorMessage =
+      err?.response?.data?.message || "Login failed. Please check your credentials.";
+    setError(errorMessage);
+    toast.error(errorMessage);
+  }
+};
 
   const handleRegister = () => {
     navigate("/register");

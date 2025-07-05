@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import "./register.css";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function Register() {
   const username = useRef();
@@ -11,32 +12,37 @@ export default function Register() {
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
-  const handleClick = async (e) => {
-    e.preventDefault();
-    setError("");
+ const handleClick = async (e) => {
+  e.preventDefault();
+  setError("");
 
-    if (passwordAgain.current.value !== password.current.value) {
-      setError("Passwords do not match.");
-      return;
-    }
+  if (passwordAgain.current.value !== password.current.value) {
+    setError("Passwords do not match.");
+    toast.error("Passwords do not match.");
+    return;
+  }
 
-    const user = {
-      username: username.current.value,
-      email: email.current.value,
-      password: password.current.value,
-    };
-
-    try {
-      await axios.post(
-        "https://deploy-social-media-ap1.onrender.com/api/auth/register",
-        user
-      );
-      navigate("/login");
-    } catch (error) {
-      setError("Registration failed. Please try again.");
-      console.log(error.message);
-    }
+  const user = {
+    username: username.current.value,
+    email: email.current.value,
+    password: password.current.value,
   };
+
+  try {
+    await axios.post(
+      "https://deploy-social-media-ap1.onrender.com/api/auth/register",
+      user
+    );
+    toast.success("Registration successful! Please login.");
+    navigate("/login");
+  } catch (error) {
+    const backendError =
+      error.response?.data?.message || "Registration failed. Please try again.";
+    setError(backendError);
+    toast.error(backendError);
+  }
+};
+
 
   const handleLogin = () => {
     navigate("/login");

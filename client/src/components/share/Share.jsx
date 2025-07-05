@@ -10,6 +10,7 @@ import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 import Picker from "@emoji-mart/react";
 import emojiData from "@emoji-mart/data";
+import { toast } from "react-toastify";
 
 export default function Share() {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -33,16 +34,20 @@ export default function Share() {
         newPost.img = img.data.fileName;
 
         await axios.post("https://deploy-social-media-ap1.onrender.com/api/posts", newPost);
-        window.location.reload();
+        toast.success("Post uploaded successfully!");
+        setTimeout(() => window.location.reload(), 1500);
       } catch (error) {
         console.error("Upload and post Error:", error.response ? error.response.data : error.message);
+        toast.error("Failed to upload post. Please try again.");
       }
     } else {
       try {
         await axios.post("https://deploy-social-media-ap1.onrender.com/api/posts", newPost);
-        window.location.reload();
+        toast.success("Post created successfully!");
+        setTimeout(() => window.location.reload(), 1500);
       } catch (error) {
         console.log("Error during post creation:", error);
+        toast.error("Failed to create post. Please try again.");
       }
     }
   };
