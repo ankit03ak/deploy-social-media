@@ -16,7 +16,7 @@ function Login() {
 const handleClick = async (e) => {
   e.preventDefault();
   try {
-    const res = await loginCall(
+    await loginCall(
       { email: email.current.value, password: password.current.value },
       dispatch
     );

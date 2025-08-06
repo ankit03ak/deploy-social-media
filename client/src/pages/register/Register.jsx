@@ -97,3 +97,5 @@ export default function Register() {
     </div>
   );
 }
+
+// JUST AADED TOAST IN  LOGIN, register, logout, and upload also, and one more thing after toast for upload i added settimeout which was earlier like only window.location.reload so do that, may be error solve
