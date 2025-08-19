@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import "./share.css";
 import { 
   MdPermMedia, 
@@ -18,6 +18,7 @@ export default function Share() {
   const [desc, setDesc] = useState("");
   const [file, setFile] = useState(null);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const emojiRef = useRef();
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -56,6 +57,21 @@ export default function Share() {
     setDesc((prevDesc) => prevDesc + emoji.native);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (emojiRef.current && !emojiRef.current.contains(event.target)) {
+        setShowEmojiPicker(false);
+      }
+    };
+  
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  console.log("first");
+
   return (
     <div className="share">
       <div className="shareWrapper">
@@ -89,7 +105,7 @@ export default function Share() {
             </div>
           </div>
           {showEmojiPicker && (
-            <div className="emojiPicker">
+            <div className="emojiPicker" ref={emojiRef}>
               <Picker data={emojiData} onEmojiSelect={handleEmojiSelect} />
             </div>
           )}

@@ -3,10 +3,11 @@ import { Users } from "../../dummyData";
 import Online from "../online/Online";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { SlUserFollow } from "react-icons/sl";
 import { MdPersonRemoveAlt1 } from "react-icons/md";
+import { toast } from "react-toastify";
 
 export default function Rightbar({ user }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -14,15 +15,17 @@ export default function Rightbar({ user }) {
   const { user:currentUser, dispatch } = useContext(AuthContext);
 
   const [followed, setFollowed] = useState(false); 
+  const navigate = useNavigate();
 
-
+  
+  
   useEffect(() => {
     if (currentUser) {
       setFollowed(currentUser.followings?.includes(user?._id) || false);
     }
   }, [currentUser, user?._id]);
-
-
+  
+  
  
 
   useEffect(() => {
@@ -54,17 +57,44 @@ export default function Rightbar({ user }) {
       if (followed) {
         await axios.put(`https://deploy-social-media-ap1.onrender.com/api/users/${user._id}/unfollow`, { userId: currentUser._id });
         dispatch({type:"UNFOLLOW",payload : user._id})
-        // console.log("Unfollowed", currentUser._id);
       } else {
         await axios.put(`https://deploy-social-media-ap1.onrender.com/api/users/${user._id}/follow`, { userId: currentUser._id });
         dispatch({type:"FOLLOW",payload : user._id})
-        // console.log("Followed", currentUser._id);
       }
     } catch (error) {
       console.log("Error:", error.message);
     }
     setFollowed(!followed); 
   };
+
+
+  const handleMessageClick = async () => {
+  try {
+    const res = await axios.get(
+      `https://deploy-social-media-ap1.onrender.com/api/conversations/${user._id}`
+    );
+
+    const existingConv = res.data.find((conv) =>
+      conv.members.includes(currentUser._id)
+    );
+
+    if (!existingConv) {
+      await axios.post(
+        `https://deploy-social-media-ap1.onrender.com/api/conversations`,
+        {
+          senderId: user._id,
+          receiverId: currentUser._id,
+        }
+      );
+    }
+
+    navigate(`/messenger`);
+  } catch (err) {
+    toast.error("Failed to start conversation. Please try again.");
+    console.log("Error starting conversation:", err);
+  }
+};
+
 
   const HomeRightbar = () => (
     <>
@@ -87,10 +117,20 @@ export default function Rightbar({ user }) {
   const ProfileRightbar = () => (
     <>
       {user?.username !== currentUser?.username && (
+        <span>
+
         <button className="rightBarFollowButton" onClick={handleClick}>
           {followed ? "Unfollow" : "Follow"}
+
           {followed ? <MdPersonRemoveAlt1 /> : <SlUserFollow />}
+
         </button>
+
+           {followed && (
+  <button className="rightBarMessageButton" onClick={handleMessageClick}>Message</button>
+)}
+        </span>
+         
       )}
       <h4 className="rightbarTitle">User Information</h4>
       <div className="rightbarInfo">

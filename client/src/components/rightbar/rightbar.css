@@ -97,3 +97,17 @@
     font-weight: 500;
     cursor: pointer;
   }
+  .rightBarMessageButton{
+    margin-top: 30px;
+    margin-bottom: 10px;
+    border: none;
+    background-color: #7d3a10c0;
+    color: white;
+    border-radius: 5px;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+  }
