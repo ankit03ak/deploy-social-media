@@ -14,6 +14,7 @@ const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
 const ConversationRoute = require("./routes/conversations");
 const messageRoute = require("./routes/messages");
+const searchRoute = require("./routes/search");
 
 app.use(express.json())
 app.use(cors({
@@ -71,6 +72,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/conversations", ConversationRoute);
 app.use("/api/messages", messageRoute);
+app.use("/api/search", searchRoute);
 
 // app.get('/', (req, res) => {
 //     res.send('Welcome to the API');

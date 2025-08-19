@@ -22,6 +22,10 @@ export default function Share() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+      if (!desc.trim() && !file) {
+    toast.error("Please write something or add a photo/video before posting!");
+    return;
+  }
     const newPost = {
       userId: user._id,
       desc: desc,
@@ -69,8 +73,6 @@ export default function Share() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
-  console.log("first");
 
   return (
     <div className="share">
