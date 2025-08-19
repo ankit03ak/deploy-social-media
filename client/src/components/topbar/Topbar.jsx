@@ -2,7 +2,7 @@ import './topbar.css'
 import { FaSearch } from "react-icons/fa";
 import { IoChatboxOutline } from "react-icons/io5";
 import {Link} from "react-router-dom"
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { toast } from 'react-toastify';
 import axios from 'axios';
@@ -18,6 +18,18 @@ export default function Topbar() {
   const [results, setResults] = useState({ users: [], posts: [] });
   const [showDropdown, setShowDropdown] = useState(false);
 
+const handleSearch = useCallback(async () => {
+    try {
+      const res = await axios.get(
+        `https://deploy-social-media-ap1.onrender.com/api/search?q=${query}`
+      );
+      setResults(res.data);
+      setShowDropdown(true);
+    } catch (err) {
+      console.error(err);
+    }
+  }, [query]);
+
   useEffect(() => {
     const delayDebounce = setTimeout(() => {
       if (query.trim()) {
@@ -28,18 +40,8 @@ export default function Topbar() {
     }, 500);
 
     return () => clearTimeout(delayDebounce);
-  }, [query]);
-    
+  }, [query, handleSearch]);
 
-      const handleSearch = async () => {
-    try {
-      const res = await axios.get(`https://deploy-social-media-ap1.onrender.com/api/search?q=${query}`);
-      setResults(res.data);
-      setShowDropdown(true);
-    } catch (err) {
-      console.error(err);
-    }
-  };
     
 const handleLogout = () => {
   localStorage.removeItem("user");
