@@ -1,113 +1,429 @@
+/* Rightbar Container */
 .rightbar {
-    flex: 3.5;
+  flex: 3.5;
+  padding: 20px;
+  max-width: 400px;
+  min-width: 0;
+  overflow-y: auto;
+  max-height: calc(100vh - 70px);
+  box-sizing: border-box;
+}
+
+.rightbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.rightbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.rightbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 10px;
+}
+
+.rightbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+}
+
+.rightbarWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* Birthday Container */
+.birthdayContainer {
+  background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
+  padding: 20px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 182, 193, 0.3);
+  transition: all 0.3s ease;
+}
+
+.birthdayContainer:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.birthdayImg {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 12px;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+  60% { transform: translateY(-5px); }
+}
+
+.birthdayText {
+  font-size: 14px;
+  color: #2d3748;
+  line-height: 1.5;
+}
+
+.birthdayText b {
+  color: #e53e3e;
+  font-weight: 600;
+}
+
+/* Advertisement */
+.rightbarAd {
+  width: 100%;
+  height: 200px;
+  border-radius: 20px;
+  object-fit: cover;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.rightbarAd:hover {
+  transform: scale(1.02);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Section Titles */
+.rightbarTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0 0 15px 0;
+  padding-bottom: 8px;
+  border-bottom: 3px solid transparent;
+  background: linear-gradient(90deg, #667eea, #764ba2) no-repeat left bottom;
+  background-size: 60px 3px;
+  position: relative;
+}
+
+.rightbarTitle::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 60px;
+  width: 30px;
+  height: 3px;
+  background: linear-gradient(90deg, #764ba2, transparent);
+}
+
+/* Follow/Message Buttons */
+.rightBarFollowButton,
+.rightBarMessageButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  margin: 0 10px 20px 0;
+  border: none;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: capitalize;
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+}
+
+.rightBarFollowButton {
+  background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(72, 187, 120, 0.3);
+}
+
+.rightBarFollowButton:hover {
+  background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(72, 187, 120, 0.4);
+}
+
+.rightBarMessageButton {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.rightBarMessageButton:hover {
+  background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+/* When following, change to unfollow style */
+.rightBarFollowButton[data-followed="true"] {
+  background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
+  box-shadow: 0 4px 15px rgba(229, 62, 62, 0.3);
+}
+
+.rightBarFollowButton[data-followed="true"]:hover {
+  background: linear-gradient(135deg, #c53030 0%, #9c2626 100%);
+  box-shadow: 0 8px 25px rgba(229, 62, 62, 0.4);
+}
+
+/* Button Loading State */
+.rightBarFollowButton:disabled,
+.rightBarMessageButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* User Information */
+.rightbarInfo {
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  margin-bottom: 25px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.rightbarInfo:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+.rightbarInfoItem {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid #f7fafc;
+}
+
+.rightbarInfoItem:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.rightbarInfoKey {
+  font-weight: 600;
+  color: #4a5568;
+  min-width: 100px;
+  font-size: 14px;
+}
+
+.rightbarInfoValue {
+  color: #2d3748;
+  font-weight: 500;
+  font-size: 14px;
+  background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+  padding: 6px 12px;
+  border-radius: 12px;
+  flex: 1;
+}
+
+/* Online Friends List */
+.rightbarFriendList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Friends Grid */
+.rightbarFollowings {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.rightbarFollowing {
+  background: white;
+  padding: 15px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.rightbarFollowing:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%);
+}
+
+.rightbarFollowingImg {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #f0f2f5;
+  transition: all 0.3s ease;
+}
+
+.rightbarFollowing:hover .rightbarFollowingImg {
+  border-color: #667eea;
+  transform: scale(1.05);
+}
+
+.rightbarFollowingName {
+  font-size: 13px;
+  font-weight: 600;
+  color: #2d3748;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.rightbarFollowing:hover .rightbarFollowingName {
+  color: #667eea;
+}
+
+/* No Friends Message */
+.rightbarFollowings p {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #718096;
+  font-style: italic;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+  border-radius: 15px;
+  border: 2px dashed #cbd5e0;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .rightbar {
+    max-width: 300px;
+    padding: 15px;
   }
   
   .rightbarWrapper {
-    padding: 20px 20px 0 0;
+    gap: 20px;
+  }
+  
+  .rightbarFollowings {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 12px;
+  }
+}
+
+@media (max-width: 992px) {
+  .rightbar {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .rightbar {
+    display: block;
+    width: 100%;
+    max-width: none;
+    padding: 15px;
+    max-height: none;
+    margin-top: 20px;
   }
   
   .birthdayContainer {
-    display: flex;
-    align-items: center;
+    padding: 15px;
+    gap: 12px;
   }
   
   .birthdayImg {
     width: 40px;
     height: 40px;
-    margin-right: 10px;
   }
   
   .birthdayText {
-    font-weight: 300;
-    font-size: 15px;
+    font-size: 13px;
   }
   
   .rightbarAd {
-    width: 100%;
-    border-radius: 10px;
-    margin: 30px 0;
+    height: 150px;
   }
   
-  .rightbarTitle{
-      margin-bottom: 20px;
+  .rightBarFollowButton,
+  .rightBarMessageButton {
+    padding: 10px 20px;
+    font-size: 13px;
+    margin: 0 8px 15px 0;
   }
   
-  .rightbarFriendList {
-    padding: 0;
-    margin: 0;
-    list-style: none;
+  .rightbarInfo {
+    padding: 15px;
   }
   
-  .rightbarTitle{
-    font-size: 18px;
-    font-weight: 500;
-    margin-bottom: 10px;
+  .rightbarFollowings {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 10px;
   }
   
-  .rightbarInfo{
-    margin-bottom: 30px;
+  .rightbarFollowingImg {
+    width: 50px;
+    height: 50px;
   }
   
-  .rightbarInfoItem{
-    margin-bottom: 10px;
+  .rightbarFollowingName {
+    font-size: 12px;
   }
-  
-  .rightbarInfoKey{
-    font-weight: 500;
-    margin-right: 15px;
-    color: #555;
-  }
-  
-  .rightbarInfoValue{
-    font-weight: 300;
-  }
-  
-  .rightbarFollowings{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-  
-  .rightbarFollowing{
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-    cursor: pointer;
-  }
-  
-  .rightbarFollowingImg{
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 5px;
-  }
+}
 
+/* Loading States */
+.rightbar.loading {
+  opacity: 0.7;
+}
 
-  .rightBarFollowButton{
-    margin-top: 30px;
-    margin-bottom: 10px;
-    border: none;
-    background-color: #1872f2;
-    color: white;
-    border-radius: 5px;
-    padding: 5px 10px;
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
+.rightbar.loading * {
+  pointer-events: none;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  .rightBarMessageButton{
-    margin-top: 30px;
-    margin-bottom: 10px;
-    border: none;
-    background-color: #7d3a10c0;
-    color: white;
-    border-radius: 5px;
-    padding: 5px 10px;
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
+}
+
+.rightbarWrapper > * {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.rightbarWrapper > *:nth-child(1) { animation-delay: 0.1s; }
+.rightbarWrapper > *:nth-child(2) { animation-delay: 0.2s; }
+.rightbarWrapper > *:nth-child(3) { animation-delay: 0.3s; }
+.rightbarWrapper > *:nth-child(4) { animation-delay: 0.4s; }
+
+/* Link Styles */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Focus States for Accessibility */
+.rightBarFollowButton:focus-visible,
+.rightBarMessageButton:focus-visible {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+.rightbarFollowing:focus-visible {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}

@@ -13,10 +13,9 @@ export default function Topbar() {
     const {user} = useContext(AuthContext);
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const [isOpen, setIsOpen] = useState(false);
-
-      const [query, setQuery] = useState("");
-  const [results, setResults] = useState({ users: [], posts: [] });
-  const [showDropdown, setShowDropdown] = useState(false);
+    const [query, setQuery] = useState("");
+    const [results, setResults] = useState({ users: [], posts: [] });
+    const [showDropdown, setShowDropdown] = useState(false);
 
 const handleSearch = useCallback(async () => {
     try {
@@ -61,56 +60,56 @@ const handleLogout = () => {
     <div className='topbarContainer'>
         <div className='topbarLeft'>
             <Link to="/" style={{textDecoration:"none"}}>
-            <span className='logo'> 𝓢𝓸𝓬𝓲𝓸-𝓩𝓸𝓷𝓮</span>
+            <span className='logo'> <img src="./assets/logoName.png" alt="" /> </span>
             </Link>
         </div>
         <div className='topbarCenter'>
             <div className="searchbar">
                 <FaSearch className='searchIcon' />
                 <input
-            placeholder='Search for friend or post'
-            className='searchInput'
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            onFocus={() => query && setShowDropdown(true)}
-            onBlur={() => setTimeout(() => setShowDropdown(false), 200)} // hide after click
+  placeholder="Search for friend or post"
+  className="searchInput"
+  value={query}
+  onChange={(e) => setQuery(e.target.value)}
+  onFocus={() => query && setShowDropdown(true)}
+  onBlur={() => setShowDropdown(false)} // no timeout needed now
+/>
+
+{showDropdown && (results.users.length > 0 || results.posts.length > 0) && (
+  <div className="searchDropdown">
+    <h4>Users</h4>
+    {results.users.length > 0 ? (
+      results.users.map((u) => (
+        <Link
+          key={u._id}
+          to={`/profile/${u.username}`}
+          className="searchItem"
+          onMouseDown={(e) => e.preventDefault()} 
+        >
+          <img
+            src={u.profilePicture ? PF + u.profilePicture : PF + "user/Blank-Avatar.png"}
+            alt=""
+            className="searchAvatar"
           />
+          <span>{u.username}</span>
+        </Link>
+      ))
+    ) : (
+      <p className="searchEmpty">No users found</p>
+    )}
 
-            {/* 🔹 Search Results Dropdown */}
-          {showDropdown && (results.users.length > 0 || results.posts.length > 0) && (
-            <div className="searchDropdown">
-              <h4>Users</h4>
-              {results.users.length > 0 ? (
-                results.users.map((u) => (
-                  <Link
-                    key={u._id}
-                    to={`/profile/${u.username}`}
-                    className="searchItem"
-                  >
-                    <img
-                      src={u.profilePicture ? PF + u.profilePicture : PF + "user/Blank-Avatar.png"}
-                      alt=""
-                      className="searchAvatar"
-                    />
-                    <span>{u.username}</span>
-                  </Link>
-                ))
-              ) : (
-                <p className="searchEmpty">No users found</p>
-              )}
-
-              <h4>Posts</h4>
-              {results.posts.length > 0 ? (
-                results.posts.map((p) => (
-                  <div key={p._id} className="searchItem">
-                    <span>{p.description}</span>
-                  </div>
-                ))
-              ) : (
-                <p className="searchEmpty">No posts found</p>
-              )}
-            </div>
-          )}
+    <h4>Posts</h4>
+    {results.posts.length > 0 ? (
+      results.posts.map((p) => (
+        <div key={p._id} className="searchItem">
+          <span>{p.description}</span>
+        </div>
+      ))
+    ) : (
+      <p className="searchEmpty">No posts found</p>
+    )}
+  </div>
+)}
 
             </div>
         </div>
@@ -144,7 +143,7 @@ const handleLogout = () => {
       
             {isOpen && (
                 <div className="dropdown-menu">
-                <button className="dropdown-item green"><Link to={`/profile/${user?.username}`} className='link-no-underline'> Profile</Link></button>
+                <button className="dropdown-item green"><Link to={`/profile/${user?.username}`} className='link-no-underline'> Profile </Link></button>
                 <button onClick={handleLogout} className="dropdown-item red">Logout</button>
                 </div>
             )}
