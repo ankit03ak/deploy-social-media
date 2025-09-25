@@ -21,41 +21,39 @@ export default function Share() {
   const emojiRef = useRef();
 
   const submitHandler = async (e) => {
-    e.preventDefault();
-      if (!desc.trim() && !file) {
+  e.preventDefault();
+
+  if (!desc.trim() && !file) {
     toast.error("Please write something or add a photo/video before posting!");
     return;
   }
-    const newPost = {
-      userId: user._id,
-      desc: desc,
-    };
+
+  try {
+    const data = new FormData();
+    data.append("userId", user._id);
+    data.append("desc", desc);
 
     if (file) {
-      const data = new FormData();
-      data.append("file", file);
-      try {
-        const img = await axios.post("https://deploy-social-media-ap1.onrender.com/api/upload", data);
-        newPost.img = img.data.fileName;
-
-        await axios.post("https://deploy-social-media-ap1.onrender.com/api/posts", newPost);
-        toast.success("Post uploaded successfully!");
-        setTimeout(() => window.location.reload(), 1500);
-      } catch (error) {
-        console.error("Upload and post Error:", error.response ? error.response.data : error.message);
-        toast.error("Failed to upload post. Please try again.");
-      }
-    } else {
-      try {
-        await axios.post("https://deploy-social-media-ap1.onrender.com/api/posts", newPost);
-        toast.success("Post created successfully!");
-        setTimeout(() => window.location.reload(), 1500);
-      } catch (error) {
-        console.log("Error during post creation:", error);
-        toast.error("Failed to create post. Please try again.");
-      }
+      data.append("img", file);
     }
-  };
+
+await axios.post(
+  "https://deploy-social-media-ap1.onrender.com/api/posts",
+  data,
+  {
+    headers: { "Content-Type": "multipart/form-data" },
+  }
+);
+
+    toast.success("Post uploaded successfully!");
+    setTimeout(() => window.location.reload(), 1500);
+
+  } catch (error) {
+    console.error("Post upload error:", error.response ? error.response.data : error.message);
+    toast.error("Failed to upload post. Please try again.");
+  }
+};
+
 
   const handleEmojiSelect = (emoji) => {
     setDesc((prevDesc) => prevDesc + emoji.native);

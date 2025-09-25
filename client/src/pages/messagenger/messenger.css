@@ -141,8 +141,6 @@
 }
 
 .shareEmoji{
-  /* bottom: 50px; */
-  /* right: 20px; */
   font-size: 30px;
   cursor: pointer;
 }
@@ -156,3 +154,4 @@
     box-shadow: 0px 5px 10px rgba(235, 95, 95, 0.1);
     border-radius: 10px;
   }
+
