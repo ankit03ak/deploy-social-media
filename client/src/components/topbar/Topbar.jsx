@@ -62,7 +62,7 @@ const handleLogout = () => {
     <div className='topbarContainer'>
         <div className='topbarLeft'>
             <Link to="/" style={{textDecoration:"none"}}>
-            <span className='logo'> <img src="../../assets/favLogo.png" alt="" /> </span>
+            <span className='logo'> <img src={`${PF}favLogo.png`} alt="" /> </span>
             </Link>
         </div>
         <div className='topbarCenter'>
