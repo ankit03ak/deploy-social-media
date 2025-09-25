@@ -9,17 +9,17 @@ import { AuthContext } from "../../context/AuthContext";
 
 export default function Post({ post }) {
 
-  // console.log(post);
-
   
-   
+  
+  
+  
   const [like,setLike] = useState(post.likes.length)
   const [isLiked,setIsLiked] = useState(false)
   const [user,setUser] = useState({})
   // const [namee, setNamme] = useState();
-
+  
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-  console.log(post.img);
+  console.log(PF);
 
   const { user:currentUser } = useContext(AuthContext)
 
