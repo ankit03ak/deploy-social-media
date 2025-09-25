@@ -9,6 +9,8 @@ import { AuthContext } from "../../context/AuthContext";
 
 export default function Post({ post }) {
 
+  // console.log(post);
+
   
    
   const [like,setLike] = useState(post.likes.length)
@@ -17,7 +19,7 @@ export default function Post({ post }) {
   // const [namee, setNamme] = useState();
 
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-  // console.log(post.img);
+  console.log(post.img);
 
   const { user:currentUser } = useContext(AuthContext)
 
@@ -46,7 +48,7 @@ export default function Post({ post }) {
     setLike(isLiked ? like-1 : like+1)
     setIsLiked(!isLiked)
   }
-  
+
 
 
   return (
@@ -72,7 +74,7 @@ export default function Post({ post }) {
         </div>
         <div className="postCenter">
           <span className="postText">{post?.desc}</span> 
-          <img className="postImg" src={(post && post.img) ? PF + post.img : "assets/user/user7.jpg"} alt="" />
+          <img className="postImg" src={(post && post.img) ? post.img : ""} alt="" />
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">

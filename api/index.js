@@ -16,6 +16,9 @@ const ConversationRoute = require("./routes/conversations");
 const messageRoute = require("./routes/messages");
 const searchRoute = require("./routes/search");
 
+const cloudinary = require("./config/cloudinary");
+
+dotenv.config();
 app.use(express.json())
 app.use(cors({
     origin: [
@@ -25,45 +28,66 @@ app.use(cors({
     credentials: true 
 }));
 
-const storage = multer.diskStorage({
-    destination : (req, file, cb) => {
-        cb(null, "public/images");
-    },
-    filename : (req, file, cb) => {
-        const fileName = Date.now() + "_" + file.originalname;
-        cb(null, fileName);
-    },
+// const storage = multer.diskStorage({
+//     destination : (req, file, cb) => {
+//         cb(null, "public/images");
+//     },
+//     filename : (req, file, cb) => {
+//         const fileName = Date.now() + "_" + file.originalname;
+//         cb(null, fileName);
+//     },
 
-})
+// })
 
-const upload = multer({storage})
 
-app.post("/api/upload", upload.single("file"), (req, res) => {
-    try {
-        if (!req.file) {
-            return res.status(400).json({ message: "No file uploaded." });
-        }
-        const fileName = req.file.filename;
-        return res.status(200).json({ fileName });
-    } catch (error) {
-        console.error("Upload Error:", error.message);
-        return res.status(500).json({ message: "File upload failed." });
-    }
+// console.log("Cloudinary config check:", cloudinary.config());
+
+
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
+// app.post("/api/upload", upload.single("file"), (req, res) => {
+//     try {
+//         if (!req.file) {
+//             return res.status(400).json({ message: "No file uploaded." });
+//         }
+//         const fileName = req.file.filename;
+//         return res.status(200).json({ fileName });
+//     } catch (error) {
+//         console.error("Upload Error:", error.message);
+//         return res.status(500).json({ message: "File upload failed." });
+//     }
+// });
+
+app.post("/api/upload", upload.single("file"), async (req, res) => {
+  try {
+    if (!req.file) return res.status(400).json({ message: "No file uploaded." });
+
+    const b64 = Buffer.from(req.file.buffer).toString("base64");
+    const dataURI = `data:${req.file.mimetype};base64,${b64}`;
+
+    const result = await cloudinary.uploader.upload(dataURI, { folder: "SOCIAL_MEDIA" });
+    return res.status(200).json({ url: result.secure_url });
+  } catch (error) {
+    console.error("Upload Error:", error.message);
+    return res.status(500).json({ message: "File upload failed." });
+  }
 });
 
 
 
-dotenv.config();
+
+
 const url = process.env.MONGO_URL;
 mongoose.connect(`${url}`,)
     .then(()=> console.log("Connected to MongoDB"))
     .catch(error => console.log("MongoDB connection error"));
 
 
-app.use("/images", express.static(path.join(__dirname, "public/images")));
+// app.use("/images", express.static(path.join(__dirname, "public/images")));
 
 
-//middlewares
 
 app.use(helmet())
 app.use(morgan("common"))
@@ -81,5 +105,5 @@ app.use("/api/search", searchRoute);
 
 
 app.listen(8800,() =>{
-    console.log(`Server is running `)
+    console.log(`Server is running at 8800`)
 })
