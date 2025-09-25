@@ -1,7 +1,7 @@
 import './topbar.css'
 import { FaSearch } from "react-icons/fa";
 import { IoChatboxOutline } from "react-icons/io5";
-import {Link} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { toast } from 'react-toastify';
@@ -16,6 +16,8 @@ export default function Topbar() {
     const [query, setQuery] = useState("");
     const [results, setResults] = useState({ users: [], posts: [] });
     const [showDropdown, setShowDropdown] = useState(false);
+    const navigate = useNavigate();
+
 
 const handleSearch = useCallback(async () => {
     try {
@@ -60,7 +62,7 @@ const handleLogout = () => {
     <div className='topbarContainer'>
         <div className='topbarLeft'>
             <Link to="/" style={{textDecoration:"none"}}>
-            <span className='logo'> <img src="./assets/logoName.png" alt="" /> </span>
+            <span className='logo'> <img src="../../assets/favLogo.png" alt="" /> </span>
             </Link>
         </div>
         <div className='topbarCenter'>
@@ -143,7 +145,12 @@ const handleLogout = () => {
       
             {isOpen && (
                 <div className="dropdown-menu">
-                <button className="dropdown-item green"><Link to={`/profile/${user?.username}`} className='link-no-underline'> Profile </Link></button>
+                <button 
+  onClick={() => navigate(`/profile/${user?.username}`)} 
+  className="dropdown-item green"
+>
+  Profile
+</button>
                 <button onClick={handleLogout} className="dropdown-item red">Logout</button>
                 </div>
             )}

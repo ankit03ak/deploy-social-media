@@ -1,32 +1,33 @@
 .profile{
     display: flex;
+    flex-direction: column; /* Stack on mobile */
 }
 
 .profileRight{
-    flex: 9;
+    flex: 1; /* Adjust to take available space */
+    width: 100%;
 }
 
 .profileCover{
-    height: 320px;
+    height: 200px; /* Reduced height for mobile */
     position: relative;
 }
 
 .profileCoverImg{
     width: 100%;
-    height: 250px;
+    height: 100%;
     object-fit: cover;
 }
 
 .profileUserImg{
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     object-fit: cover;
     position: absolute;
-    left: 0;
-    right: 0;
-    margin: auto;
-    top: 150px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 130px; /* Adjusted for smaller cover */
     border: 3px solid white;
 }
 
@@ -35,16 +36,56 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-top: 70px; /* Space below profile image */
+    text-align: center;
+    padding: 0 10px;
 }
 
 .profileInfoName{
-    font-size: 24px;
+    font-size: 20px;
+    word-break: break-word;
 }
 
 .profileInfoDesc{
     font-weight: 300;
+    font-size: 14px;
 }
 
 .profileRightBottom{
     display: flex;
+    flex-direction: column; /* Stack content on mobile */
+    width: 100%;
 }
+
+/* Media queries for tablets and larger devices */
+@media (min-width: 768px){
+    .profile{
+        flex-direction: row;
+    }
+
+    .profileRightBottom{
+        flex-direction: row;
+    }
+    
+    .profileUserImg{
+        width: 150px;
+        height: 150px;
+        top: 150px;
+    }
+
+    .profileInfoName{
+        font-size: 24px;
+    }
+
+    .profileInfoDesc{
+        font-size: 16px;
+    }
+}
+
+.temp2{
+    flex: 0.5;
+}
+.temp{
+    flex: 0.5;
+}
+

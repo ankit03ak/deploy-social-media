@@ -16,39 +16,20 @@ export const Users = [
     },
     {
       id: 4,
-      profilePicture: `user/user4.jpg`,
-      username: "Anoop",
-    },
-    {
-      id: 5,
       profilePicture: `user/user5.jpg`,
       username: "Priya Rai",
     },
     {
-      id: 6,
-      profilePicture: `user/user6.jpg`,
+      id: 5,
+      profilePicture: `user/user7.jpg`,
       username: "Avanish Shukla",
     },
     {
-      id: 7,
-      profilePicture: `user/user7.jpg`,
-      username: "Arjun Dev",
-    },
-    {
-      id: 8,
-      profilePicture: `user/user8.jpg`,
+      id: 6,
+      profilePicture: `user/user6.jpg`,
       username: "Om Prakash",
     },
-    {
-      id: 9,
-      profilePicture: `user/user9.jpg`,
-      username: "Saurabh Singh",
-    },
-    {
-      id: 10,
-      profilePicture: `user/user10.jpg`,
-      username: "Sandeep Chauhan",
-    },
+
   ];
   
   export const Posts = [

@@ -1,4 +1,4 @@
-.share {
+/* .share {
     width: 100%;
     border-radius: 10px;
     -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
@@ -100,7 +100,6 @@
   }
 
   .emojiPicker {
-    /* position: absolute; */
     bottom: 80px;
     left: 50px;
     margin-left: 30px;
@@ -109,4 +108,154 @@
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
   }
-  
+   */
+
+   /* --- Main Share Container --- */
+.share {
+  width: 100%;
+  border-radius: 12px;
+  -webkit-box-shadow: 0px 2px 15px -5px rgba(0,0,0,0.15);
+  box-shadow: 0px 2px 15px -5px rgba(0,0,0,0.15);
+  background-color: #ffffff;
+  font-family: 'Inter', sans-serif; /* A clean, modern font */
+}
+
+.shareWrapper {
+  padding: 15px;
+}
+
+/* --- Share Top Section --- */
+.shareTop {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.shareProfileImg {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.shareInput {
+  border: none;
+  width: 85%;
+  font-size: 16px;
+  padding: 12px;
+  border-radius: 30px;
+  background-color: #f0f2f5;
+  margin-left: 10px;
+}
+
+.shareInput:focus {
+  outline: none;
+}
+
+.shareHr {
+  margin: 20px 0;
+  border: 0;
+  border-top: 1px solid #e4e6eb;
+}
+
+/* --- Image Preview Section --- */
+.shareImgContainer {
+  padding: 0 10px 10px 10px;
+  position: relative;
+}
+
+.shareImg {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.shareCancelImg {
+  position: absolute;
+  top: 5px;
+  right: 15px;
+  cursor: pointer;
+  font-size: 28px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.shareCancelImg:hover {
+    opacity: 1;
+}
+
+
+/* --- Share Bottom Section --- */
+.shareBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative; /* For emoji picker positioning */
+}
+
+.shareOptions {
+  display: flex;
+  gap: 15px;
+  margin-left: 20px;
+}
+
+.shareOption {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.shareOption:hover {
+    background-color: #f0f2f5;
+}
+
+.shareIcon {
+  font-size: 24px;
+  margin-right: 5px;
+}
+
+.shareOptionText {
+  font-size: 14px;
+  font-weight: 500;
+  color: #555;
+}
+
+.shareButton {
+  border: none;
+  padding: 9px 20px;
+  border-radius: 8px;
+  background-color: #1877f2;
+  font-weight: 500;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.shareButton:hover {
+    background-color: #166fe5;
+}
+
+/* --- Emoji Picker --- */
+.shareBottom .emojiPicker {
+
+    position: absolute;
+    bottom: -500px;
+    /* left: -350px; */
+    z-index: 10;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* For desktop */
+@media (min-width: 768px) {
+    .emojiPicker {
+      margin-top: 100px;
+    }
+}
