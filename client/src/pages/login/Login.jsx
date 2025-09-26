@@ -16,20 +16,19 @@ function Login() {
 const handleClick = async (e) => {
   e.preventDefault();
   try {
-    await loginCall(
-      { email: email.current.value, password: password.current.value },
-      dispatch
-    );
+  const res = await loginCall(
+    { email: email.current.value, password: password.current.value },
+    dispatch
+  );
 
-    // Show success toast
-    toast.success("Login successful!");
-  } catch (err) {
-    // Show backend error if available, else fallback to default
-    const errorMessage =
-      err?.response?.data?.message || "Login failed. Please check your credentials.";
-    setError(errorMessage);
-    toast.error(errorMessage);
-  }
+  if (res) toast.success("Login successful!");
+} catch (err) {
+  const errorMessage =
+    err?.response?.data?.message || "Login failed. Please check your credentials.";
+  setError(errorMessage);
+  toast.error(errorMessage);
+}
+
 };
 
   const handleRegister = () => {
