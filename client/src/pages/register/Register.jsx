@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import "./register.css";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { FaCircleNotch } from "react-icons/fa";
 
 export default function Register() {
   const username = useRef();
@@ -12,13 +13,17 @@ export default function Register() {
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
+  const [isLoading, setIsLoading] = useState(false);
+
  const handleClick = async (e) => {
   e.preventDefault();
   setError("");
+  setIsLoading(true);
 
   if (passwordAgain.current.value !== password.current.value) {
     setError("Passwords do not match.");
     toast.error("Passwords do not match.");
+    setIsLoading(false);
     return;
   }
 
@@ -85,7 +90,13 @@ export default function Register() {
             className="register-input"
           />
           {error && <div className="error-message">{error}</div>}
-          <button className="register-button" type="submit">Sign Up</button>
+          <button className="register-button" type="submit" disabled={isLoading}>
+            {isLoading ? (
+              <FaCircleNotch className="spinner-icon" />
+            ) : (
+              "Sign Up"
+            )}
+          </button>
           <div className="register-footer">
             <span className="already-account">Already have an account?</span>
             <button className="login-button" type="button" onClick={handleLogin}>

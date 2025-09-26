@@ -49,7 +49,7 @@ const handleLogout = () => {
   toast.success("Logged out successfully!");
   setTimeout(() => {
     window.location.href = "/login";
-  }, 1500);
+  }, 1000);
 };
 
 
