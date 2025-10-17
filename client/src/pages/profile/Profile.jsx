@@ -25,6 +25,8 @@ export default function Profile() {
     };
     fetchUser();
   }, [username]);
+
+  console.log(user.profilePicture)
   
 
 
@@ -38,14 +40,25 @@ export default function Profile() {
             <div className="profileCover">
               <img
                 className="profileCoverImg"
-                src={user?.coverPicture ? PF+user.coverPicture : PF+"user/blank_cover.png"}
-                alt=""
+                src={
+      user?.coverPicture
+        ? user.coverPicture.startsWith("http")
+          ? user.coverPicture
+          : PF + user.coverPicture
+        : PF + "user/blank_cover.png"
+    }
+    alt=""
                 />
               <img
                 className="profileUserImg"
-                src={user?.profilePicture ? PF+user.profilePicture : PF+"user/Blank-Avatar.png"}
-
-                alt=""
+                    src={
+      user?.profilePicture
+        ? user.profilePicture.startsWith("http")
+          ? user.profilePicture
+          : PF + user.profilePicture
+        : PF + "user/Blank-Avatar.png"
+    }
+    alt=""
               />
             </div>
             <div className="profileInfo">
