@@ -8,9 +8,9 @@ import { AuthContext } from "../../context/AuthContext";
 import { SlUserFollow } from "react-icons/sl";
 import { MdPersonRemoveAlt1 } from "react-icons/md";
 import { toast } from "react-toastify";
+import { PF } from "../../config";
 
 export default function Rightbar({ user }) {
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [friends, setFriends] = useState([]);
   const { user:currentUser, dispatch } = useContext(AuthContext);
 
@@ -99,12 +99,12 @@ export default function Rightbar({ user }) {
   const HomeRightbar = () => (
     <>
       <div className="birthdayContainer">
-        <img className="birthdayImg" src={`${PF}gift.png`} alt="" />
+        <img className="birthdayImg" src={PF("gift.png")} alt="" />
         <span className="birthdayText">
           <b>Ankit</b> and <b>13 other friends</b> have a birthday today! wish them
         </span>
       </div>
-      <img className="rightbarAd" src={`${PF}advertise.jpg`} alt="" />
+      <img className="rightbarAd" src={PF("advertise.jpg")} alt="" />
       <h4 className="rightbarTitle">Online Friends</h4>
       <ul className="rightbarFriendList">
         {Users.map((u) => (
@@ -156,10 +156,10 @@ export default function Rightbar({ user }) {
             <Link to={`/profile/${friend.username}`} key={friend._id} style={{ textDecoration: 'none' }}>
               <div className="rightbarFollowing">
                 <img
-                  src={friend.profilePicture ? PF + friend.profilePicture : PF + "user/Blank-Avatar.png"}
-                  alt=""
-                  className="rightbarFollowingImg"
-                />
+  src={PF(friend.profilePicture) || PF("user/Blank-Avatar.png")}
+  alt=""
+  className="rightbarFollowingImg"
+/>
                 <span className="rightbarFollowingName">{friend.username}</span>
               </div>
             </Link>

@@ -6,12 +6,12 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import { PF } from '../../config';
 
 
 export default function Topbar() {
 
     const {user} = useContext(AuthContext);
-    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const [isOpen, setIsOpen] = useState(false);
     const [query, setQuery] = useState("");
     const [results, setResults] = useState({ users: [], posts: [] });
@@ -62,7 +62,7 @@ const handleLogout = () => {
     <div className='topbarContainer'>
         <div className='topbarLeft'>
             <Link to="/" style={{textDecoration:"none"}}>
-            <span className='logo'> <img src={PF + "favLogo.png"} alt="" /> </span>
+            <span className='logo'> <img src={PF("favLogo.png")} alt="" /> </span>
             </Link>
         </div>
         <div className='topbarCenter'>
@@ -74,7 +74,7 @@ const handleLogout = () => {
   value={query}
   onChange={(e) => setQuery(e.target.value)}
   onFocus={() => query && setShowDropdown(true)}
-  onBlur={() => setShowDropdown(false)} // no timeout needed now
+  onBlur={() => setShowDropdown(false)}
 />
 
 {showDropdown && (results.users.length > 0 || results.posts.length > 0) && (
@@ -89,10 +89,10 @@ const handleLogout = () => {
           onMouseDown={(e) => e.preventDefault()} 
         >
           <img
-            src={u.profilePicture ? PF + u.profilePicture : PF + "user/Blank-Avatar.png"}
-            alt=""
-            className="searchAvatar"
-          />
+  src={PF(u.profilePicture) || PF("user/Blank-Avatar.png")}
+  alt=""
+  className="searchAvatar"
+/>
           <span>{u.username}</span>
         </Link>
       ))
@@ -140,7 +140,12 @@ const handleLogout = () => {
             
             <div className="dropdown">
             <button onClick={toggleDropdown} className="profile-button">
-                <img src={user?.profilePicture ? PF + user?.profilePicture : PF + "user/Blank-Avatar.png"} alt="Profile" className="profile-icon" />
+                {/* <img src={user?.profilePicture ? PF + user?.profilePicture : PF + "user/Blank-Avatar.png"} alt="Profile" className="profile-icon" /> */}
+                <img
+  src={PF(user?.profilePicture) || PF("user/Blank-Avatar.png")}
+  alt="Profile"
+  className="profile-icon"
+/>
             </button>
       
             {isOpen && (

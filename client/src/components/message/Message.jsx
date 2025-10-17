@@ -3,9 +3,10 @@ import "./message.css";
 import { format } from "timeago.js";
 import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
+import { PF } from "../../config";
 
 export default function Message({ message, own, inComingUser }) {
-    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+    // const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const { user } = useContext(AuthContext);
     const [inComingPP, setIncomingPP] = useState(null);
 
@@ -26,18 +27,22 @@ export default function Message({ message, own, inComingUser }) {
         }
     }, [user, inComingUser]);
 
+    // const profilePictureUrl = own
+    //     ? (user?.profilePicture ? `${PF}${user?.profilePicture}` : `${PF}user/Blank-Avatar.png`)  // Current user's profile picture
+    //     : (inComingPP?.profilePicture ? `${PF}${inComingPP?.profilePicture}` : `${PF}user/Blank-Avatar.png`);  // Sender's profile picture
+
     const profilePictureUrl = own
-        ? (user?.profilePicture ? `${PF}${user?.profilePicture}` : `${PF}user/Blank-Avatar.png`)  // Current user's profile picture
-        : (inComingPP?.profilePicture ? `${PF}${inComingPP?.profilePicture}` : `${PF}user/Blank-Avatar.png`);  // Sender's profile picture
+  ? PF(user?.profilePicture) || PF("user/Blank-Avatar.png") // Current user's profile picture
+  : PF(inComingPP?.profilePicture) || PF("user/Blank-Avatar.png"); // Sender's profile picture
 
     return (
         <div className={own ? "message own" : "message"}>
             <div className="messageTop">
-                <img
-                    className="messageImg"
-                    src={profilePictureUrl}
-                    alt="Profile"
-                />
+<img
+  className="messageImg"
+  src={PF(profilePictureUrl) || PF("user/Blank-Avatar.png")}
+  alt="Profile"
+/>
                 <p className="messageText">{message.text}</p>
             </div>
             <div className="messageBottom">{format(message.createdAt)}</div>

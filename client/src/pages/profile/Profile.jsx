@@ -5,12 +5,15 @@ import Rightbar from "../../components/rightbar/Rightbar";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router";
+import { PF } from "../../config";
 
 export default function Profile() {
 
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  // const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [user, setUser] = useState({});
   const username = useParams().username;
+
+  // console.log(PF)
   
   
 
@@ -26,7 +29,7 @@ export default function Profile() {
     fetchUser();
   }, [username]);
 
-  console.log(user.profilePicture)
+
   
 
 
@@ -38,28 +41,27 @@ export default function Profile() {
         <div className="profileRight">
           <div className="profileRightTop">
             <div className="profileCover">
-              <img
+              {/* <img
                 className="profileCoverImg"
-                src={
-      user?.coverPicture
-        ? user.coverPicture.startsWith("http")
-          ? user.coverPicture
-          : PF + user.coverPicture
-        : PF + "user/blank_cover.png"
-    }
-    alt=""
+                src={user?.coverPicture ? PF+user.coverPicture : PF+"user/blank_cover.png"}
+                alt=""
                 />
               <img
                 className="profileUserImg"
-                    src={
-      user?.profilePicture
-        ? user.profilePicture.startsWith("http")
-          ? user.profilePicture
-          : PF + user.profilePicture
-        : PF + "user/Blank-Avatar.png"
-    }
+                src={user?.profilePicture ? PF+user.profilePicture : PF+"user/Blank-Avatar.png"}
+
+                alt=""
+              /> */}
+                <img
+    className="profileCoverImg"
+    src={PF(user?.coverPicture) || PF("user/blank_cover.png")}
     alt=""
-              />
+  />
+  <img
+    className="profileUserImg"
+    src={PF(user?.profilePicture) || PF("user/Blank-Avatar.png")}
+    alt=""
+  />
             </div>
             <div className="profileInfo">
                 <h4 className="profileInfoName">{user.username}</h4>

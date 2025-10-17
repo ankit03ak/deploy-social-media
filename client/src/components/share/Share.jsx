@@ -11,9 +11,10 @@ import axios from "axios";
 import Picker from "@emoji-mart/react";
 import emojiData from "@emoji-mart/data";
 import { toast } from "react-toastify";
+import { PF } from "../../config";
 
 export default function Share() {
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  // const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const { user } = useContext(AuthContext);
   const [desc, setDesc] = useState("");
   const [file, setFile] = useState(null);
@@ -76,7 +77,11 @@ await axios.post(
     <div className="share">
       <div className="shareWrapper">
         <div className="shareTop">
-          <img className="shareProfileImg" src={user.profilePicture ? PF + user.profilePicture : PF + "user/Blank-Avatar.png"} alt="" />
+          <img
+  className="shareProfileImg"
+  src={PF(user?.profilePicture) || PF("user/Blank-Avatar.png")}
+  alt=""
+/>
           <input
             value={desc}
             onChange={(e) => setDesc(e.target.value)}

@@ -2,10 +2,11 @@
 import { useEffect, useState } from "react";
 import "./conversation.css";
 import axios from "axios";
+import { PF } from "../../config";
 
 export default function Conversation({ conversation, currentUser }) {
   const [user, setUser] = useState(null);
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  // const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
   useEffect(() => {
     const friendId = conversation.members.find((m) => m !== currentUser._id);
@@ -25,19 +26,21 @@ export default function Conversation({ conversation, currentUser }) {
   }, [currentUser, conversation]);
 
   // Ensure user is not null before accessing properties
-  const profilePictureUrl =
-   user?.profilePicture
-    ? `${PF}${user.profilePicture}`
-    : 
-    `${PF}user/Blank-Avatar.png`;
+  // const profilePictureUrl =
+  //  user?.profilePicture
+  //   ? `${PF}${user.profilePicture}`
+  //   : 
+  //   `${PF}user/Blank-Avatar.png`;
+
+  const profilePictureUrl = PF(user?.profilePicture) || PF("user/Blank-Avatar.png");
 
   return (
     <div className="conversation">
       <img
-        className="conversationImg"
-        src={profilePictureUrl}
-        alt=""
-      />
+  className="conversationImg"
+  src={profilePictureUrl}
+  alt=""
+/>
       <span className="conversationName">{user?.username || 'user Unknown'}</span>
     </div>
   );

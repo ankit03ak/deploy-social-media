@@ -7,6 +7,7 @@ import {format} from "timeago.js"
 import {Link} from "react-router-dom"
 import { AuthContext } from "../../context/AuthContext";
 import { toast } from "react-toastify";
+import { PF } from "../../config";
 
 export default function Post({ post }) {
 
@@ -19,7 +20,7 @@ export default function Post({ post }) {
   const [user,setUser] = useState({})
   // const [namee, setNamme] = useState();
   
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  // const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
   const { user:currentUser } = useContext(AuthContext)
 
@@ -82,10 +83,10 @@ export default function Post({ post }) {
           <div className="postTopLeft">
             <Link to={`profile/${user.username}`}>
             <img
-              className="postProfileImg"
-              src={ user.profilePicture ? PF + user.profilePicture : PF+"user/Blank-Avatar.png"}
-              alt=""
-              />
+  className="postProfileImg"
+  src={PF(user.profilePicture) || PF("user/Blank-Avatar.png")}
+  alt=""
+/>
               </Link>
             <span className="postUsername">
               {user.username}
@@ -117,8 +118,8 @@ export default function Post({ post }) {
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">
-            <img className="likeIcon" src={`${PF}like.png`} onClick={likeHandler} alt="" />
-            <img className="likeIcon" src={`${PF}heart.png`} onClick={likeHandler} alt="" />
+<img className="likeIcon" src={PF("like.png")} onClick={likeHandler} alt="" />
+<img className="likeIcon" src={PF("heart.png")} onClick={likeHandler} alt="" />
             <span className="postLikeCounter">{like} Likes </span>
           </div>
           <div className="postBottomRight">
