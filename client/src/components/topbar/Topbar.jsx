@@ -100,7 +100,7 @@ const handleLogout = () => {
       <p className="searchEmpty">No users found</p>
     )}
 
-    <h4>Posts</h4>
+    {/* <h4>Posts</h4>
     {results.posts.length > 0 ? (
       results.posts.map((p) => (
         <div key={p._id} className="searchItem">
@@ -109,7 +109,7 @@ const handleLogout = () => {
       ))
     ) : (
       <p className="searchEmpty">No posts found</p>
-    )}
+    )} */}
   </div>
 )}
 
