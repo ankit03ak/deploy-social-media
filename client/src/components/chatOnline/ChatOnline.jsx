@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./chatonline.css";
 import axios from "axios";
 import { PF } from "../../config";
+import { findConversation, getFriendsByUserId } from "../../api/postApi";
 
 export default function ChatOnline( {onlineUsers, currentId,setCurrentChat} ) {
 
@@ -14,7 +15,8 @@ export default function ChatOnline( {onlineUsers, currentId,setCurrentChat} ) {
   useEffect(() => {
     const getFriends = async () => {
       try {
-        const res = await axios.get("https://deploy-social-media-ap1.onrender.com/api/users/friends/" + currentId );
+        // const res = await axios.get("https://deploy-social-media-ap1.onrender.com/api/users/friends/" + currentId );
+        const res = await getFriendsByUserId(currentId);
         setFriends(res.data);
       } catch (error) {
         console.log(error.message)
@@ -34,9 +36,10 @@ export default function ChatOnline( {onlineUsers, currentId,setCurrentChat} ) {
 
   const handleClick = async (user) => {
     try {
-      const res = await axios.get(
-        `https://deploy-social-media-ap1.onrender.com/api/conversations/find/${currentId}/${user._id}`
-      );
+      // const res = await axios.get(
+      //   `https://deploy-social-media-ap1.onrender.com/api/conversations/find/${currentId}/${user._id}`
+      // );
+      const res = await findConversation(currentId, user._id);
       setCurrentChat(res.data);
     } catch (err) {
       console.log(err);

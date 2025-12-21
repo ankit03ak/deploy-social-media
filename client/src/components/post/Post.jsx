@@ -8,6 +8,7 @@ import {Link} from "react-router-dom"
 import { AuthContext } from "../../context/AuthContext";
 import { toast } from "react-toastify";
 import { PF } from "../../config";
+import { deletePostById, getUserById, likePost } from "../../api/postApi";
 
 export default function Post({ post }) {
 
@@ -31,7 +32,8 @@ export default function Post({ post }) {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get(`https://deploy-social-media-ap1.onrender.com/api/users?userId=${post.userId}`);
+        // const res = await axios.get(`https://deploy-social-media-ap1.onrender.com/api/users?userId=${post.userId}`);
+        const res = await getUserById(post.userId);
         setUser(res.data)
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -42,7 +44,8 @@ export default function Post({ post }) {
 
   const likeHandler = async ()=>{
     try {
-      await axios.put("https://deploy-social-media-ap1.onrender.com/api/posts/" + post._id + "/like", {userId : currentUser._id} ) 
+      // await axios.put("https://deploy-social-media-ap1.onrender.com/api/posts/" + post._id + "/like", {userId : currentUser._id} ) 
+      await likePost(post._id, currentUser._id);
     } catch (error) {
       console.log(error.message)
     }
@@ -55,9 +58,10 @@ export default function Post({ post }) {
   
   const deletePost = async (postId, userId) => {
   try {
-    await axios.delete(`https://deploy-social-media-ap1.onrender.com/api/posts/${postId}`, {
-      data: { userId: userId }, // send userId in request body
-    });
+    // await axios.delete(`https://deploy-social-media-ap1.onrender.com/api/posts/${postId}`, {
+    //   data: { userId: userId }, // send userId in request body
+    // });
+    await deletePostById(postId, userId);
     toast.success("Post deleted successfully!");
     setTimeout(() => window.location.reload(), 500);
     // Option 1: reload page

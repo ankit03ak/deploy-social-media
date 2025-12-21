@@ -7,11 +7,15 @@ import { AuthContext } from '../../context/AuthContext';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { PF } from '../../config';
+import { searchQuery } from '../../api/postApi';
 
 
 export default function Topbar() {
 
     const {user} = useContext(AuthContext);
+
+    // console.log("Topbar user:", user);
+
     const [isOpen, setIsOpen] = useState(false);
     const [query, setQuery] = useState("");
     const [results, setResults] = useState({ users: [], posts: [] });
@@ -21,9 +25,10 @@ export default function Topbar() {
 
 const handleSearch = useCallback(async () => {
     try {
-      const res = await axios.get(
-        `https://deploy-social-media-ap1.onrender.com/api/search?q=${query}`
-      );
+      // const res = await axios.get(
+      //   `https://deploy-social-media-ap1.onrender.com/api/search?q=${query}`
+      // );
+      const res = await searchQuery(query);
       setResults(res.data);
       setShowDropdown(true);
     } catch (err) {
@@ -46,6 +51,7 @@ const handleSearch = useCallback(async () => {
     
 const handleLogout = () => {
   localStorage.removeItem("user");
+  localStorage.removeItem("accessToken");
   toast.success("Logged out successfully!");
   setTimeout(() => {
     window.location.href = "/login";

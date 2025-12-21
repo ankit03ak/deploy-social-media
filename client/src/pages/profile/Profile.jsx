@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router";
 import { PF } from "../../config";
+import { getUserByUsername } from "../../api/postApi";
 
 export default function Profile() {
 
@@ -18,9 +19,11 @@ export default function Profile() {
   
 
   useEffect(() => {
+    if (!username) return;
     const fetchUser = async () => {
       try {
-        const res = await axios.get(`https://deploy-social-media-ap1.onrender.com/api/users?username=${username}`);
+        // const res = await axios.get(`https://deploy-social-media-ap1.onrender.com/api/users?username=${username}`);
+        const res = await getUserByUsername(username);
         setUser(res.data);
       } catch (error) {
         console.error("Error fetching data:", error.message);

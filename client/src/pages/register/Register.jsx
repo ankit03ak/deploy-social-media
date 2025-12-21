@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import "./register.css";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { FaCircleNotch } from "react-icons/fa";
+import { registerCall } from "../../apiCalls";
 
 export default function Register() {
   const username = useRef();
@@ -34,19 +34,19 @@ export default function Register() {
   };
 
   try {
-    await axios.post(
-      "https://deploy-social-media-ap1.onrender.com/api/auth/register",
-      user
-    );
+    await registerCall(user);
     toast.success("Registration successful! Please login.");
     navigate("/login");
   } catch (error) {
     const backendError =
-      error.response?.data?.message || "Registration failed. Please try again.";
+      error?.response?.data?.message ||
+      "Registration failed. Please try again.";
     setError(backendError);
     toast.error(backendError);
+  } finally {
+    setIsLoading(false);
   }
-};
+  };
 
 
   const handleLogin = () => {

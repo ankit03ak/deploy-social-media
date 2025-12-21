@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import "./conversation.css";
 import axios from "axios";
 import { PF } from "../../config";
+import { getUserById } from "../../api/postApi";
 
 export default function Conversation({ conversation, currentUser }) {
   const [user, setUser] = useState(null);
@@ -13,7 +14,8 @@ export default function Conversation({ conversation, currentUser }) {
 
     const getUser = async () => {
       try {
-        const res = await axios(`https://deploy-social-media-ap1.onrender.com/api/users?userId=${friendId}`);
+        // const res = await axios(`https://deploy-social-media-ap1.onrender.com/api/users?userId=${friendId}`);
+        const res = await getUserById(friendId);
         setUser(res.data);
       } catch (error) {
         console.log("Error fetching user data:", error);

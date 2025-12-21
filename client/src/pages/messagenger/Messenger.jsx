@@ -12,6 +12,7 @@ import { MdEmojiEmotions } from "react-icons/md";
 
 import Picker from "@emoji-mart/react";
 import emojiData from "@emoji-mart/data";
+import { getConversationsByUser, getMessagesByConversation, sendMessageApi } from "../../api/postApi";
 
 export default function Messenger() {
   const [conversations, setConversations] = useState([]);
@@ -36,7 +37,7 @@ export default function Messenger() {
   }, [arrivalMessage, currentChat]);
 
   useEffect(() => {
-    socket.current = io("wss://deploy-social-media-socket1.onrender.com");
+    socket.current = io(process.env.REACT_APP_SOCKET_URL);
 
     socket.current.on("getMessage", (data) => {
       setArrivalMessage({
@@ -82,9 +83,10 @@ useEffect(() => {
   useEffect(() => {
     const getConversations = async () => {
       try {
-        const res = await axios.get(
-          `https://deploy-social-media-ap1.onrender.com/api/conversations/${user._id}`
-        );
+        // const res = await axios.get(
+        //   `https://deploy-social-media-ap1.onrender.com/api/conversations/${user._id}`
+        // );
+        const res = await getConversationsByUser(user._id);
         if (Array.isArray(res.data)) {
           setConversations(res.data);
         } else {
@@ -104,9 +106,10 @@ useEffect(() => {
     if (currentChat?._id) {
       const getMessages = async () => {
         try {
-          const res = await axios.get(
-            `https://deploy-social-media-ap1.onrender.com/api/messages/${currentChat._id}`
-          );
+          // const res = await axios.get(
+          //   `https://deploy-social-media-ap1.onrender.com/api/messages/${currentChat._id}`
+          // );
+          const res = await getMessagesByConversation(currentChat._id);
           // console.log("Messages Response:", res.data);
           if (Array.isArray(res.data)) {
             setMessages(res.data);
@@ -149,10 +152,11 @@ useEffect(() => {
     });
 
     try {
-      const res = await axios.post(
-        "https://deploy-social-media-ap1.onrender.com/api/messages",
-        message
-      );
+      // const res = await axios.post(
+      //   "https://deploy-social-media-ap1.onrender.com/api/messages",
+      //   message
+      // );
+      const res = await sendMessageApi(message);
       setMessages([...messages, res.data]);
       setNewMessage("");
     } catch (error) {

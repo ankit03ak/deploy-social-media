@@ -12,6 +12,7 @@ import Picker from "@emoji-mart/react";
 import emojiData from "@emoji-mart/data";
 import { toast } from "react-toastify";
 import { PF } from "../../config";
+import { createPost } from "../../api/postApi";
 
 export default function Share() {
   // const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -38,13 +39,14 @@ export default function Share() {
       data.append("img", file);
     }
 
-await axios.post(
-  "https://deploy-social-media-ap1.onrender.com/api/posts",
-  data,
-  {
-    headers: { "Content-Type": "multipart/form-data" },
-  }
-);
+// await axios.post(
+//   "https://deploy-social-media-ap1.onrender.com/api/posts",
+//   data,
+//   {
+//     headers: { "Content-Type": "multipart/form-data" },
+//   }
+// );.
+await createPost(data);
 
     toast.success("Post uploaded successfully!");
     setTimeout(() => window.location.reload(), 1500);

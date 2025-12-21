@@ -2,8 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import Post from "../post/Post";
 import Share from "../share/Share";
 import "./feed.css";
-import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
+import { getProfilePosts, getTimelinePosts } from "../../api/postApi";
 
 
 export default function Feed({username}) {
@@ -17,16 +17,16 @@ export default function Feed({username}) {
 
   useEffect(() => {
     const fetchData = async () => {
-      // const response = username
-      //   ? await axios.get("http://localhost:5000https://deploy-social-media-ap1.onrender.com/api/posts/profile/" + username)
-      //   : await axios.get(
-      //       "http://localhost:5000https://deploy-social-media-ap1.onrender.com/api/posts/timeline/" + user._id
-      //     );
-      const url = username
-      ? `https://deploy-social-media-ap1.onrender.com/api/posts/profile/${username}`
-      : `https://deploy-social-media-ap1.onrender.com/api/posts/timeline/${user._id}`;
+    //   const url = username
+    //   ? `https://deploy-social-media-ap1.onrender.com/api/posts/profile/${username}`
+    //   : `https://deploy-social-media-ap1.onrender.com/api/posts/timeline/${user._id}`;
     
-    const response = await axios.get(url);
+    // const response = await axios.get(url);
+    if (!username && !user?._id) return;
+
+  const response = username
+    ? await getProfilePosts(username)
+    : await getTimelinePosts(user._id);
 
       setPosts(
         response.data.sort((post1, post2) => {

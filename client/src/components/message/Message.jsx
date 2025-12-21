@@ -4,6 +4,7 @@ import { format } from "timeago.js";
 import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
 import { PF } from "../../config";
+import { getUserById } from "../../api/postApi";
 
 export default function Message({ message, own, inComingUser }) {
     // const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -15,7 +16,8 @@ export default function Message({ message, own, inComingUser }) {
 
         const getUser = async () => {
             try {
-                const res = await axios.get(`https://deploy-social-media-ap1.onrender.com/api/users?userId=${friendId}`);
+                // const res = await axios.get(`https://deploy-social-media-ap1.onrender.com/api/users?userId=${friendId}`);
+                const res = await getUserById(friendId);
                 setIncomingPP(res.data);
             } catch (error) {
                 console.log("Error fetching user data:", error);

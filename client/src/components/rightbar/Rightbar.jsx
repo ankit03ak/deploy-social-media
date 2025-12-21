@@ -9,6 +9,7 @@ import { SlUserFollow } from "react-icons/sl";
 import { MdPersonRemoveAlt1 } from "react-icons/md";
 import { toast } from "react-toastify";
 import { PF } from "../../config";
+import { createConversation, followUser, getConversationsByUser, getFriendsByUserId, unfollowUser } from "../../api/postApi";
 
 export default function Rightbar({ user }) {
   const [friends, setFriends] = useState([]);
@@ -33,7 +34,8 @@ export default function Rightbar({ user }) {
       if (!user?._id) return;
 
       try {
-        const friendList = await axios.get("https://deploy-social-media-ap1.onrender.com/api/users/friends/" + user._id);
+        // const friendList = await axios.get("https://deploy-social-media-ap1.onrender.com/api/users/friends/" + user._id);
+        const friendList = await getFriendsByUserId(user._id);
         if (Array.isArray(friendList.data)) {
           setFriends(friendList.data);
         } else if (friendList.data && Array.isArray(friendList.data.friends)) {
@@ -55,10 +57,12 @@ export default function Rightbar({ user }) {
 
     try {
       if (followed) {
-        await axios.put(`https://deploy-social-media-ap1.onrender.com/api/users/${user._id}/unfollow`, { userId: currentUser._id });
+        // await axios.put(`https://deploy-social-media-ap1.onrender.com/api/users/${user._id}/unfollow`, { userId: currentUser._id });
+        await unfollowUser(user._id, currentUser._id);
         dispatch({type:"UNFOLLOW",payload : user._id})
       } else {
-        await axios.put(`https://deploy-social-media-ap1.onrender.com/api/users/${user._id}/follow`, { userId: currentUser._id });
+        // await axios.put(`https://deploy-social-media-ap1.onrender.com/api/users/${user._id}/follow`, { userId: currentUser._id });
+        await followUser(user._id, currentUser._id);
         dispatch({type:"FOLLOW",payload : user._id})
       }
     } catch (error) {
@@ -70,22 +74,24 @@ export default function Rightbar({ user }) {
 
   const handleMessageClick = async () => {
   try {
-    const res = await axios.get(
-      `https://deploy-social-media-ap1.onrender.com/api/conversations/${user._id}`
-    );
+    // const res = await axios.get(
+    //   `https://deploy-social-media-ap1.onrender.com/api/conversations/${user._id}`
+    // );
+    const res = await getConversationsByUser(user._id);
 
     const existingConv = res.data.find((conv) =>
       conv.members.includes(currentUser._id)
     );
 
     if (!existingConv) {
-      await axios.post(
-        `https://deploy-social-media-ap1.onrender.com/api/conversations`,
-        {
-          senderId: user._id,
-          receiverId: currentUser._id,
-        }
-      );
+      // await axios.post(
+      //   `https://deploy-social-media-ap1.onrender.com/api/conversations`,
+      //   {
+      //     senderId: user._id,
+      //     receiverId: currentUser._id,
+      //   }
+      // );
+      await createConversation(user._id, currentUser._id);
     }
 
     navigate(`/messenger`);
