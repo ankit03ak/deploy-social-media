@@ -1,7 +1,6 @@
 
 import { useEffect, useState } from "react";
 import "./conversation.css";
-import axios from "axios";
 import { PF } from "../../config";
 import { getUserById } from "../../api/postApi";
 

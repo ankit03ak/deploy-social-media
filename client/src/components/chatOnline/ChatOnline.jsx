@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import "./chatonline.css";
-import axios from "axios";
 import { PF } from "../../config";
 import { findConversation, getFriendsByUserId } from "../../api/postApi";
 

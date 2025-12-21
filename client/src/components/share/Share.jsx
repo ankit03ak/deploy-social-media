@@ -7,7 +7,6 @@ import {
 } from 'react-icons/md';
 
 import { AuthContext } from "../../context/AuthContext";
-import axios from "axios";
 import Picker from "@emoji-mart/react";
 import emojiData from "@emoji-mart/data";
 import { toast } from "react-toastify";

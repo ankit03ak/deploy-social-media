@@ -5,7 +5,6 @@ import Message from "../../components/message/Message";
 import ChatOnline from "../../components/chatOnline/ChatOnline";
 import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import axios from "axios";
 import { io } from "socket.io-client";
 import { toast } from "react-toastify";
 import { MdEmojiEmotions } from "react-icons/md";

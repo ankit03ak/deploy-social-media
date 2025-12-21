@@ -2,7 +2,6 @@ import "./post.css";
 import { MdDelete, MdMoreVert } from "react-icons/md";
 
 import { useContext, useEffect, useState } from "react";
-import axios from "axios";
 import {format} from "timeago.js"
 import {Link} from "react-router-dom"
 import { AuthContext } from "../../context/AuthContext";

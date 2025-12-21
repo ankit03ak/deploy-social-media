@@ -3,7 +3,6 @@ import Topbar from "../../components/topbar/Topbar";
 import Feed from "../../components/feed/Feed";
 import Rightbar from "../../components/rightbar/Rightbar";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useParams } from "react-router";
 import { PF } from "../../config";
 import { getUserByUsername } from "../../api/postApi";

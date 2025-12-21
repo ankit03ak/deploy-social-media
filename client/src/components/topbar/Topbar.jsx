@@ -5,7 +5,6 @@ import {Link, useNavigate} from "react-router-dom"
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { toast } from 'react-toastify';
-import axios from 'axios';
 import { PF } from '../../config';
 import { searchQuery } from '../../api/postApi';
 

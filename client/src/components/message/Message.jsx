@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import "./message.css";
 import { format } from "timeago.js";
-import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
 import { PF } from "../../config";
 import { getUserById } from "../../api/postApi";
