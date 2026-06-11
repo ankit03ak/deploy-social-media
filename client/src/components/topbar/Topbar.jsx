@@ -137,7 +137,7 @@ const handleLogout = () => {
                 <div className="topbarIconItem">
                 <Link to="/messenger" className="no-link-style">
                     <IoChatboxOutline className='badge' />
-                    <span className="topbarIconBadge">1</span>
+                    <span className="topbarIconBadge">0</span>
                 </Link>
                 </div>
                 

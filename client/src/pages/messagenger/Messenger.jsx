@@ -12,6 +12,7 @@ import { MdEmojiEmotions } from "react-icons/md";
 import Picker from "@emoji-mart/react";
 import emojiData from "@emoji-mart/data";
 import { getConversationsByUser, getMessagesByConversation, sendMessageApi } from "../../api/postApi";
+import { includesId, normalizeId, sameId } from "../../utils/id";
 
 export default function Messenger() {
   const [conversations, setConversations] = useState([]);
@@ -20,11 +21,36 @@ export default function Messenger() {
   const [newMessage, setNewMessage] = useState("");
   const [arrivalMessage, setArrivalMessage] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
+  const [connectedUsers, setConnectedUsers] = useState([]);
   const socket = useRef();
   const { user } = useContext(AuthContext);
   const scrollRef = useRef();
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const emojiRef = useRef();
+  const prevOnlineUsersRef = useRef([]);
+
+  useEffect(() => {
+  if (!currentChat || !user) return;
+
+  const friendId = currentChat.members.find(
+    (m) => !sameId(m, user._id)
+  );
+
+  const prevOnline = prevOnlineUsersRef.current;
+  const currOnline = onlineUsers;
+
+  if (!includesId(prevOnline, friendId) && includesId(currOnline, friendId)) {
+    toast.success(`User is online`);
+  }
+
+  if (includesId(prevOnline, friendId) && !includesId(currOnline, friendId)) {
+    toast.info(`User went offline`);
+  }
+
+  prevOnlineUsersRef.current = currOnline;
+}, [onlineUsers, currentChat, user]);
+
+
 
   useEffect(() => {
     if (
@@ -36,7 +62,15 @@ export default function Messenger() {
   }, [arrivalMessage, currentChat]);
 
   useEffect(() => {
-    socket.current = io(process.env.REACT_APP_SOCKET_URL);
+    if (!user?._id) return;
+
+    const socketUrl = process.env.REACT_APP_SOCKET_URL;
+    if (!socketUrl) {
+      console.warn("REACT_APP_SOCKET_URL is not set. Online users will not update.");
+      return;
+    }
+
+    socket.current = io(socketUrl);
 
     socket.current.on("getMessage", (data) => {
       setArrivalMessage({
@@ -46,10 +80,18 @@ export default function Messenger() {
       });
     });
 
+    socket.current.on("getUsers", (users) => {
+      setConnectedUsers(users);
+    });
+
+    socket.current.emit("addUser", user._id);
+
     return () => {
-      socket.current.disconnect();
+      socket.current?.off("getMessage");
+      socket.current?.off("getUsers");
+      socket.current?.disconnect();
     };
-  }, []);
+  }, [user?._id]);
 
 const handleEmojiSelect = (emoji) => {
   setNewMessage((prev) => prev + emoji.native);
@@ -69,15 +111,18 @@ useEffect(() => {
 }, []);
 
   useEffect(() => {
-    if (user._id) {
-      socket.current.emit("addUser", user._id);
-      socket.current.on("getUsers", (users) => {
-        setOnlineUsers(
-          user.followings.filter((f) => users.some((u) => u.userId === f))
-        );
-      });
-    }
-  }, [user]);
+    const onlineIds = connectedUsers.map((u) => normalizeId(u.userId));
+    setOnlineUsers(
+      (user?.followings || []).filter((followingId) =>
+        onlineIds.includes(normalizeId(followingId))
+      )
+    );
+  }, [connectedUsers, user?.followings]);
+
+  useEffect(() => {
+    if (!socket.current || !user?._id) return;
+    socket.current.emit("addUser", user._id);
+  }, [user?._id, user?.followings]);
 
   useEffect(() => {
     const getConversations = async () => {
@@ -141,7 +186,7 @@ useEffect(() => {
     };
 
     const receiverId = currentChat.members.find(
-      (member) => member !== user._id
+      (member) => !sameId(member, user._id)
     );
 
     socket.current.emit("sendMessage", {

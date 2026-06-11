@@ -1,6 +1,12 @@
+const allowedOrigins = [
+    "https://deploy-social-media-ui1.vercel.app",
+    "http://localhost:3000",
+    process.env.CLIENT_URL,
+].filter(Boolean);
+
 const io = require("socket.io")(8900, {
     cors: {
-        origin: "https://deploy-social-media-ui1.vercel.app",
+        origin: allowedOrigins,
         methods: ["GET", "POST", "PUT", "FETCH"],
         allowedHeaders: ["my-custom-header"],
         credentials: true,
@@ -9,14 +15,21 @@ const io = require("socket.io")(8900, {
 
 let users = [];
 
+const normalizeId = (id) => (id == null ? "" : String(id));
+
 const addUser = (userId, socketId) => {
-    if (!users.some((user) => user.userId === userId)) {
-        users.push({ userId, socketId });
+    const normalizedUserId = normalizeId(userId);
+    const existingUser = users.find((user) => user.userId === normalizedUserId);
+
+    if (existingUser) {
+        existingUser.socketId = socketId;
+    } else {
+        users.push({ userId: normalizedUserId, socketId });
     }
 };
 
 const getUser = (userId) => {
-    return users.find(user => user.userId === userId);
+    return users.find((user) => user.userId === normalizeId(userId));
 };
 
 const removeUser = (socketId) => {

@@ -78,16 +78,20 @@ router.get("/", async (req, res) => {
 router.get("/friends/:userId", async (req, res) => {
     try {
         const user = await User.findById(req.params.userId);
+        if (!user) {
+            return res.status(404).json({ Message: "User not found" });
+        }
+
         const friends = await Promise.all(
-            user.followings.map(friendId => {
-                return User.findById(friendId)
-            })
-        )
+            (user.followings || []).map((friendId) => User.findById(friendId))
+        );
         let friendList = [];
-        friends.map(friend => {
-            const { _id, username, profilePicture } = friend;
-            friendList.push( {_id, username, profilePicture})
-        });
+        friends
+            .filter((friend) => friend != null)
+            .forEach((friend) => {
+                const { _id, username, profilePicture } = friend;
+                friendList.push({ _id, username, profilePicture });
+            });
         res.status(200).json(friendList);   
     } catch (error) {
         res.status(500).json({Message : error.message})
