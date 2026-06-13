@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./chatonline.css";
 import { PF } from "../../config";
 import { findConversation, getFriendsByUserId } from "../../api/postApi";
+import { includesId, sameId } from "../../utils/id";
 
 export default function ChatOnline( {onlineUsers, currentId,setCurrentChat} ) {
 
@@ -27,8 +28,15 @@ export default function ChatOnline( {onlineUsers, currentId,setCurrentChat} ) {
 
 
   useEffect(() => {
-    setOnlineFriends(friends.filter((f) => onlineUsers.includes(f._id)));
-  }, [friends, onlineUsers]);
+    setOnlineFriends(
+      friends.filter(
+        (friend) =>
+          friend &&
+          !sameId(friend._id, currentId) &&
+          includesId(onlineUsers, friend._id)
+      )
+    );
+  }, [friends, onlineUsers, currentId]);
   
 
 
@@ -47,9 +55,14 @@ export default function ChatOnline( {onlineUsers, currentId,setCurrentChat} ) {
 
   return (
     <div className="chatOnline">
-      { onlineFriends.map((o, index) => (
+      <span className="chatOnlineTitle">Online Users</span>
 
-        <div key={index} className="chatOnlineFriend" onClick={() => handleClick(o)}>
+  {onlineFriends.length === 0 && (
+    <span className="chatOnlineEmpty">No users online</span>
+  )}
+      { onlineFriends.map((o) => (
+
+        <div key={o._id} className="chatOnlineFriend" onClick={() => handleClick(o)}>
           <div className="chatOnlineImgContainer">
             <img
   className="chatOnlineImg"
