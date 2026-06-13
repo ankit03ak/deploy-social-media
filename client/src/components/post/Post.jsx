@@ -74,7 +74,7 @@ export default function Post({ post }) {
 };
 
   const showNotDelete = () => {
-    toast.info("You can delete only your post");
+    toast.info("You can edit or delete your post only");
   };
 
 
