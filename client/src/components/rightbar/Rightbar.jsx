@@ -1,7 +1,6 @@
 import "./rightbar.css";
-import { Users } from "../../dummyData";
 import Online from "../online/Online";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { SlUserFollow } from "react-icons/sl";
@@ -9,13 +8,19 @@ import { MdPersonRemoveAlt1 } from "react-icons/md";
 import { toast } from "react-toastify";
 import { PF } from "../../config";
 import { createConversation, followUser, getConversationsByUser, getFriendsByUserId, unfollowUser } from "../../api/postApi";
+import { io } from "socket.io-client";
+import { includesId, normalizeId, sameId } from "../../utils/id";
 
 export default function Rightbar({ user }) {
   const [friends, setFriends] = useState([]);
+  const [onlineFriends, setOnlineFriends] = useState([]);
+  const [connectedUsers, setConnectedUsers] = useState([]);
   const { user:currentUser, dispatch } = useContext(AuthContext);
 
   const [followed, setFollowed] = useState(false); 
   const navigate = useNavigate();
+  const socket = useRef();
+  const showingHomeRightbar = !user;
 
   
   
@@ -30,11 +35,13 @@ export default function Rightbar({ user }) {
 
   useEffect(() => {
     const getFriends = async () => {
-      if (!user?._id) return;
+      const targetUserId = user?._id || currentUser?._id;
+
+      if (!targetUserId) return;
 
       try {
         // const friendList = await axios.get("https://deploy-social-media-ap1.onrender.com/api/users/friends/" + user._id);
-        const friendList = await getFriendsByUserId(user._id);
+        const friendList = await getFriendsByUserId(targetUserId);
         if (Array.isArray(friendList.data)) {
           setFriends(friendList.data);
         } else if (friendList.data && Array.isArray(friendList.data.friends)) {
@@ -49,7 +56,53 @@ export default function Rightbar({ user }) {
     };
 
     getFriends();
-  }, [user]);
+  }, [user?._id, currentUser?._id]);
+
+  useEffect(() => {
+    if (!showingHomeRightbar || !currentUser?._id) {
+      setConnectedUsers([]);
+      setOnlineFriends([]);
+      return;
+    }
+
+    const socketUrl = process.env.REACT_APP_SOCKET_URL;
+    if (!socketUrl) {
+      console.warn("REACT_APP_SOCKET_URL is not set. Online friends will not update.");
+      return;
+    }
+
+    socket.current = io(socketUrl);
+
+    socket.current.on("getUsers", (users) => {
+      setConnectedUsers(Array.isArray(users) ? users : []);
+    });
+
+    socket.current.emit("addUser", currentUser._id);
+
+    return () => {
+      socket.current?.off("getUsers");
+      socket.current?.disconnect();
+      socket.current = null;
+    };
+  }, [showingHomeRightbar, currentUser?._id]);
+
+  useEffect(() => {
+    if (!showingHomeRightbar || !currentUser?._id) {
+      setOnlineFriends([]);
+      return;
+    }
+
+    const onlineIds = connectedUsers.map((item) => normalizeId(item.userId));
+
+    setOnlineFriends(
+      friends.filter(
+        (friend) =>
+          friend &&
+          !sameId(friend._id, currentUser._id) &&
+          includesId(onlineIds, friend._id)
+      )
+    );
+  }, [showingHomeRightbar, friends, connectedUsers, currentUser?._id]);
 
   const handleClick = async () => {
     if (!currentUser) return;
@@ -112,9 +165,13 @@ export default function Rightbar({ user }) {
       <img className="rightbarAd" src={PF("advertise.jpg")} alt="" />
       <h4 className="rightbarTitle">Online Friends</h4>
       <ul className="rightbarFriendList">
-        {Users.map((u) => (
-          <Online key={u.id} user={u} />
-        ))}
+        {onlineFriends.length > 0 ? (
+          onlineFriends.map((friend) => (
+            <Online key={friend._id} user={friend} />
+          ))
+        ) : (
+          <li className="rightbarFriend">No friends online right now</li>
+        )}
       </ul>
     </>
   );
